@@ -1,0 +1,26 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000014",
+  "kind": "Type",
+  "name": "StructuredError",
+  "schema_version": "2.0",
+  "spec": {
+    "fields": {
+      "code": {
+        "required": true,
+        "type": "string"
+      },
+      "location": {
+        "required": false,
+        "type": "optional<StructuredLocation>"
+      },
+      "message": {
+        "required": true,
+        "type": "string"
+      },
+      "severity": {
+        "required": true,
+        "type": "Severity"
+      }
+    }
+  }
+}

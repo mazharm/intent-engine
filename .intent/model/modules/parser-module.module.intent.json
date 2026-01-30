@@ -1,0 +1,46 @@
+{
+  "id": "e0000000-0000-0000-0000-000000000002",
+  "kind": "Module",
+  "name": "ParserModule",
+  "schema_version": "2.0",
+  "spec": {
+    "children": [
+      {
+        "file": "loader.rs",
+        "name": "loader",
+        "public": true
+      },
+      {
+        "file": "config.rs",
+        "name": "config",
+        "public": true
+      },
+      {
+        "file": "canonical.rs",
+        "name": "canonical",
+        "public": true
+      }
+    ],
+    "description": "Intent file loading and parsing",
+    "path": "src/parser",
+    "private": [
+      "discover_intent_files"
+    ],
+    "public": [
+      "IntentStore",
+      "IntentConfig",
+      "load_intent_file",
+      "create_new_intent",
+      "format_intent_files",
+      "apply_patch",
+      "canonicalize",
+      "pretty_canonical",
+      "hash_canonical"
+    ],
+    "re_exports": [
+      "loader::*",
+      "config::*",
+      "canonical::*"
+    ]
+  }
+}

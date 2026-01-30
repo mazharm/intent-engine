@@ -1,0 +1,261 @@
+{
+  "id": "f0000000-0000-0000-0000-000000000001",
+  "kind": "Function",
+  "name": "TypeRefParse",
+  "schema_version": "2.0",
+  "spec": {
+    "body": {
+      "bindings": [
+        {
+          "name": "trimmed",
+          "value": {
+            "args": [],
+            "expr": {
+              "kind": "Variable",
+              "name": "s"
+            },
+            "kind": "Method",
+            "name": "trim"
+          }
+        }
+      ],
+      "body": {
+        "arms": [
+          {
+            "body": {
+              "args": [
+                {
+                  "kind": "Variable",
+                  "name": "trimmed"
+                }
+              ],
+              "function": "parse_array_type",
+              "kind": "Call"
+            },
+            "pattern": {
+              "kind": "StartsWith",
+              "prefix": "array<"
+            }
+          },
+          {
+            "body": {
+              "args": [
+                {
+                  "kind": "Variable",
+                  "name": "trimmed"
+                }
+              ],
+              "function": "parse_optional_type",
+              "kind": "Call"
+            },
+            "pattern": {
+              "kind": "StartsWith",
+              "prefix": "optional<"
+            }
+          },
+          {
+            "body": {
+              "args": [
+                {
+                  "kind": "Variable",
+                  "name": "trimmed"
+                }
+              ],
+              "function": "parse_map_type",
+              "kind": "Call"
+            },
+            "pattern": {
+              "kind": "StartsWith",
+              "prefix": "map<"
+            }
+          },
+          {
+            "body": {
+              "kind": "Return",
+              "value": {
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "value": "TypeRef::String"
+                  }
+                ],
+                "function": "Ok",
+                "kind": "Call"
+              }
+            },
+            "pattern": {
+              "kind": "Literal",
+              "value": "string"
+            }
+          },
+          {
+            "body": {
+              "kind": "Return",
+              "value": {
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "value": "TypeRef::Int"
+                  }
+                ],
+                "function": "Ok",
+                "kind": "Call"
+              }
+            },
+            "pattern": {
+              "kind": "Literal",
+              "value": "int"
+            }
+          },
+          {
+            "body": {
+              "kind": "Return",
+              "value": {
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "value": "TypeRef::Float"
+                  }
+                ],
+                "function": "Ok",
+                "kind": "Call"
+              }
+            },
+            "pattern": {
+              "kind": "Literal",
+              "value": "float"
+            }
+          },
+          {
+            "body": {
+              "kind": "Return",
+              "value": {
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "value": "TypeRef::Bool"
+                  }
+                ],
+                "function": "Ok",
+                "kind": "Call"
+              }
+            },
+            "pattern": {
+              "kind": "Literal",
+              "value": "bool"
+            }
+          },
+          {
+            "body": {
+              "kind": "Return",
+              "value": {
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "value": "TypeRef::Money"
+                  }
+                ],
+                "function": "Ok",
+                "kind": "Call"
+              }
+            },
+            "pattern": {
+              "kind": "Literal",
+              "value": "money"
+            }
+          },
+          {
+            "body": {
+              "kind": "Return",
+              "value": {
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "value": "TypeRef::DateTime"
+                  }
+                ],
+                "function": "Ok",
+                "kind": "Call"
+              }
+            },
+            "pattern": {
+              "kind": "Literal",
+              "value": "datetime"
+            }
+          },
+          {
+            "body": {
+              "kind": "Return",
+              "value": {
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "value": "TypeRef::Uuid"
+                  }
+                ],
+                "function": "Ok",
+                "kind": "Call"
+              }
+            },
+            "pattern": {
+              "kind": "Literal",
+              "value": "uuid"
+            }
+          },
+          {
+            "body": {
+              "kind": "Return",
+              "value": {
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "value": "TypeRef::Bytes"
+                  }
+                ],
+                "function": "Ok",
+                "kind": "Call"
+              }
+            },
+            "pattern": {
+              "kind": "Literal",
+              "value": "bytes"
+            }
+          },
+          {
+            "body": {
+              "args": [
+                {
+                  "kind": "Variable",
+                  "name": "trimmed"
+                }
+              ],
+              "function": "parse_named_type",
+              "kind": "Call"
+            },
+            "pattern": {
+              "kind": "Wildcard"
+            }
+          }
+        ],
+        "kind": "Match",
+        "on": {
+          "kind": "Variable",
+          "name": "trimmed"
+        }
+      },
+      "kind": "Let"
+    },
+    "description": "Parse a type string into a TypeRef",
+    "parameters": [
+      {
+        "description": "The type string to parse",
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "pure": true,
+    "returns": {
+      "type": "Result<TypeRef, TypeParseError>"
+    }
+  }
+}

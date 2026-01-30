@@ -1,0 +1,34 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000008",
+  "kind": "Type",
+  "name": "FunctionSpec",
+  "schema_version": "2.0",
+  "spec": {
+    "fields": {
+      "body": {
+        "required": true,
+        "type": "Expression"
+      },
+      "description": {
+        "required": false,
+        "type": "string"
+      },
+      "generics": {
+        "required": false,
+        "type": "array<GenericParam>"
+      },
+      "parameters": {
+        "required": false,
+        "type": "array<FunctionParam>"
+      },
+      "pure": {
+        "required": false,
+        "type": "bool"
+      },
+      "returns": {
+        "required": true,
+        "type": "ReturnType"
+      }
+    }
+  }
+}

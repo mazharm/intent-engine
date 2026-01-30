@@ -1,0 +1,18 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440002",
+  "kind": "Type",
+  "name": "RefundResponse",
+  "schema_version": "1.0",
+  "spec": {
+    "fields": {
+      "refund_id": {
+        "required": true,
+        "type": "uuid"
+      },
+      "status": {
+        "required": true,
+        "type": "string"
+      }
+    }
+  }
+}

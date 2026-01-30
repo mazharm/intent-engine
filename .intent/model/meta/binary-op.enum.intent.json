@@ -1,0 +1,90 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000005",
+  "kind": "Enum",
+  "name": "BinaryOp",
+  "schema_version": "2.0",
+  "spec": {
+    "derives": [
+      "Debug",
+      "Clone",
+      "Copy",
+      "PartialEq",
+      "Eq",
+      "Serialize",
+      "Deserialize"
+    ],
+    "description": "Binary operators for expressions",
+    "variants": [
+      {
+        "description": "Addition (+)",
+        "name": "Add",
+        "serde_rename": "+"
+      },
+      {
+        "description": "Subtraction (-)",
+        "name": "Sub",
+        "serde_rename": "-"
+      },
+      {
+        "description": "Multiplication (*)",
+        "name": "Mul",
+        "serde_rename": "*"
+      },
+      {
+        "description": "Division (/)",
+        "name": "Div",
+        "serde_rename": "/"
+      },
+      {
+        "description": "Modulo (%)",
+        "name": "Mod",
+        "serde_rename": "%"
+      },
+      {
+        "description": "Equality (==)",
+        "name": "Eq",
+        "serde_rename": "=="
+      },
+      {
+        "description": "Inequality (!=)",
+        "name": "Ne",
+        "serde_rename": "!="
+      },
+      {
+        "description": "Less than (<)",
+        "name": "Lt",
+        "serde_rename": "<"
+      },
+      {
+        "description": "Less than or equal (<=)",
+        "name": "Le",
+        "serde_rename": "<="
+      },
+      {
+        "description": "Greater than (>)",
+        "name": "Gt",
+        "serde_rename": ">"
+      },
+      {
+        "description": "Greater than or equal (>=)",
+        "name": "Ge",
+        "serde_rename": ">="
+      },
+      {
+        "description": "Logical AND (&&)",
+        "name": "And",
+        "serde_rename": "&&"
+      },
+      {
+        "description": "Logical OR (||)",
+        "name": "Or",
+        "serde_rename": "||"
+      },
+      {
+        "description": "String concatenation (++)",
+        "name": "Concat",
+        "serde_rename": "++"
+      }
+    ]
+  }
+}

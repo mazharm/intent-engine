@@ -1,0 +1,69 @@
+{
+  "id": "e0000000-0000-0000-0000-000000000001",
+  "kind": "Module",
+  "name": "ModelModule",
+  "schema_version": "2.0",
+  "spec": {
+    "children": [
+      {
+        "file": "document.rs",
+        "name": "document",
+        "public": true
+      },
+      {
+        "file": "types.rs",
+        "name": "types",
+        "public": true
+      },
+      {
+        "file": "specs.rs",
+        "name": "specs",
+        "public": true
+      },
+      {
+        "file": "error.rs",
+        "name": "error",
+        "public": true
+      }
+    ],
+    "description": "Core data model types for intent documents",
+    "path": "src/model",
+    "private": [
+      "split_map_types"
+    ],
+    "public": [
+      "IntentDocument",
+      "IntentKind",
+      "IntentSummary",
+      "TypeRef",
+      "TypeSpec",
+      "FieldDef",
+      "ServiceSpec",
+      "WorkflowSpec",
+      "EndpointSpec",
+      "ContractTestSpec",
+      "MigrationSpec",
+      "FunctionSpec",
+      "PipelineSpec",
+      "TemplateSpec",
+      "EnumSpec",
+      "ModuleSpec",
+      "CommandSpec",
+      "TraitSpec",
+      "Expression",
+      "BinaryOp",
+      "UnaryOp",
+      "Pattern",
+      "IntentError",
+      "StructuredError",
+      "Severity",
+      "codes"
+    ],
+    "re_exports": [
+      "document::*",
+      "types::*",
+      "specs::*",
+      "error::*"
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "id": "e0000000-0000-0000-0000-000000000004",
+  "kind": "Module",
+  "name": "CodegenModule",
+  "schema_version": "2.0",
+  "spec": {
+    "children": [
+      {
+        "file": "types.rs",
+        "name": "types",
+        "public": true
+      },
+      {
+        "file": "endpoints.rs",
+        "name": "endpoints",
+        "public": true
+      },
+      {
+        "file": "workflows.rs",
+        "name": "workflows",
+        "public": true
+      },
+      {
+        "file": "effects.rs",
+        "name": "effects",
+        "public": true
+      },
+      {
+        "file": "errors.rs",
+        "name": "errors",
+        "public": true
+      },
+      {
+        "file": "functions.rs",
+        "name": "functions",
+        "public": true
+      },
+      {
+        "file": "enums.rs",
+        "name": "enums",
+        "public": true
+      },
+      {
+        "file": "commands.rs",
+        "name": "commands",
+        "public": true
+      },
+      {
+        "file": "templates.rs",
+        "name": "templates",
+        "public": true
+      },
+      {
+        "file": "crate_gen.rs",
+        "name": "crate_gen",
+        "public": true
+      },
+      {
+        "file": "trace.rs",
+        "name": "trace",
+        "public": true
+      },
+      {
+        "file": "manifest.rs",
+        "name": "manifest",
+        "public": true
+      }
+    ],
+    "description": "Rust code generation from intents",
+    "path": "src/codegen",
+    "public": [
+      "generate_all",
+      "GenerationResult",
+      "generate_types",
+      "generate_endpoints",
+      "generate_workflows",
+      "generate_effects",
+      "generate_errors",
+      "generate_functions",
+      "generate_enums",
+      "generate_commands",
+      "generate_from_templates",
+      "generate_cargo_toml",
+      "generate_lib_rs",
+      "generate_trace_map",
+      "GenManifest"
+    ],
+    "re_exports": [
+      "types::*",
+      "endpoints::*",
+      "workflows::*",
+      "effects::*",
+      "errors::*",
+      "functions::*",
+      "enums::*",
+      "commands::*",
+      "templates::*",
+      "crate_gen::*",
+      "trace::*",
+      "manifest::*"
+    ]
+  }
+}

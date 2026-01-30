@@ -1,0 +1,73 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000001",
+  "kind": "Enum",
+  "name": "IntentKind",
+  "schema_version": "2.0",
+  "spec": {
+    "derives": [
+      "Debug",
+      "Clone",
+      "Copy",
+      "PartialEq",
+      "Eq",
+      "Hash",
+      "Serialize",
+      "Deserialize"
+    ],
+    "description": "All valid intent kinds in the intent-engine system",
+    "variants": [
+      {
+        "description": "Struct/record type definitions",
+        "name": "Type"
+      },
+      {
+        "description": "HTTP API endpoint handlers",
+        "name": "Endpoint"
+      },
+      {
+        "description": "Multi-step business logic with effects",
+        "name": "Workflow"
+      },
+      {
+        "description": "External HTTP service definitions",
+        "name": "Service"
+      },
+      {
+        "description": "Contract tests for external services",
+        "name": "ContractTest"
+      },
+      {
+        "description": "Database schema migrations",
+        "name": "Migration"
+      },
+      {
+        "description": "Pure transformations with expression language",
+        "name": "Function"
+      },
+      {
+        "description": "Composable stage sequences",
+        "name": "Pipeline"
+      },
+      {
+        "description": "Code generation templates",
+        "name": "Template"
+      },
+      {
+        "description": "Sum types / variants",
+        "name": "Enum"
+      },
+      {
+        "description": "Code organization / visibility",
+        "name": "Module"
+      },
+      {
+        "description": "CLI entry points",
+        "name": "Command"
+      },
+      {
+        "description": "Behavior contracts / interfaces",
+        "name": "Trait"
+      }
+    ]
+  }
+}

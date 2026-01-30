@@ -1,0 +1,145 @@
+{
+  "id": "f0000000-0000-0000-0000-000000000003",
+  "kind": "Function",
+  "name": "CanonicalizeJson",
+  "schema_version": "2.0",
+  "spec": {
+    "body": {
+      "arms": [
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "null"
+          },
+          "pattern": {
+            "enum_name": "Value",
+            "kind": "Variant",
+            "variant": "Null"
+          }
+        },
+        {
+          "body": {
+            "cond": {
+              "kind": "Variable",
+              "name": "b"
+            },
+            "else_branch": {
+              "kind": "Literal",
+              "value": "false"
+            },
+            "kind": "If",
+            "then_branch": {
+              "kind": "Literal",
+              "value": "true"
+            }
+          },
+          "pattern": {
+            "bindings": [
+              "b"
+            ],
+            "enum_name": "Value",
+            "kind": "Variant",
+            "variant": "Bool"
+          }
+        },
+        {
+          "body": {
+            "args": [
+              {
+                "kind": "Variable",
+                "name": "n"
+              }
+            ],
+            "function": "canonicalize_number",
+            "kind": "Call"
+          },
+          "pattern": {
+            "bindings": [
+              "n"
+            ],
+            "enum_name": "Value",
+            "kind": "Variant",
+            "variant": "Number"
+          }
+        },
+        {
+          "body": {
+            "args": [
+              {
+                "kind": "Variable",
+                "name": "s"
+              }
+            ],
+            "function": "canonicalize_string",
+            "kind": "Call"
+          },
+          "pattern": {
+            "bindings": [
+              "s"
+            ],
+            "enum_name": "Value",
+            "kind": "Variant",
+            "variant": "String"
+          }
+        },
+        {
+          "body": {
+            "args": [
+              {
+                "kind": "Variable",
+                "name": "arr"
+              }
+            ],
+            "function": "canonicalize_array",
+            "kind": "Call"
+          },
+          "pattern": {
+            "bindings": [
+              "arr"
+            ],
+            "enum_name": "Value",
+            "kind": "Variant",
+            "variant": "Array"
+          }
+        },
+        {
+          "body": {
+            "args": [
+              {
+                "kind": "Variable",
+                "name": "obj"
+              }
+            ],
+            "function": "canonicalize_object",
+            "kind": "Call"
+          },
+          "pattern": {
+            "bindings": [
+              "obj"
+            ],
+            "enum_name": "Value",
+            "kind": "Variant",
+            "variant": "Object"
+          }
+        }
+      ],
+      "kind": "Match",
+      "on": {
+        "kind": "Variable",
+        "name": "value"
+      }
+    },
+    "description": "Canonicalize a JSON value according to RFC 8785 (JCS)",
+    "parameters": [
+      {
+        "description": "The JSON value to canonicalize",
+        "name": "value",
+        "type": "serde_json::Value"
+      }
+    ],
+    "pure": true,
+    "returns": {
+      "type": "String"
+    }
+  }
+}

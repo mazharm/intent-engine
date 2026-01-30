@@ -1,0 +1,39 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440007",
+  "kind": "ContractTest",
+  "name": "PaymentsRefundContract",
+  "schema_version": "1.0",
+  "spec": {
+    "operation": "Refund",
+    "scenarios": [
+      {
+        "name": "successful_refund",
+        "request": {
+          "amount": 1000,
+          "order_id": "order-123"
+        },
+        "response": {
+          "body": {
+            "refund_id": "@uuid",
+            "status": "completed"
+          },
+          "status": 200
+        }
+      },
+      {
+        "name": "insufficient_funds",
+        "request": {
+          "amount": 999999,
+          "order_id": "order-456"
+        },
+        "response": {
+          "body": {
+            "error": "insufficient_funds"
+          },
+          "status": 400
+        }
+      }
+    ],
+    "service": "Payments"
+  }
+}

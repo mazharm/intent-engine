@@ -1,0 +1,26 @@
+[project]
+name = "intent-engine-example"
+version = "0.1.0"
+
+[generation]
+rust_edition = "2021"
+
+[runtime]
+http_client = "reqwest"
+db_client = "sqlx"
+event_client = "kafka"
+
+[environments]
+default = "dev"
+
+[environments.dev]
+"Payments.base_url" = "http://localhost:8080"
+"db.connection_string" = "postgres://localhost/dev"
+
+[environments.staging]
+"Payments.base_url" = "https://payments.staging.internal"
+"db.connection_string" = "postgres://staging-db/app"
+
+[environments.prod]
+"Payments.base_url" = "https://payments.internal"
+"db.connection_string" = "postgres://prod-db/app"

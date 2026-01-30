@@ -1,0 +1,166 @@
+{
+  "id": "f0000000-0000-0000-0000-000000000004",
+  "kind": "Function",
+  "name": "ToSnakeCase",
+  "schema_version": "2.0",
+  "spec": {
+    "body": {
+      "bindings": [
+        {
+          "name": "result",
+          "type_annotation": "String",
+          "value": {
+            "args": [],
+            "function": "String::new",
+            "kind": "Call"
+          }
+        }
+      ],
+      "body": {
+        "exprs": [
+          {
+            "body": {
+              "bindings": [
+                {
+                  "name": "i",
+                  "value": {
+                    "expr": {
+                      "kind": "Variable",
+                      "name": "i_c"
+                    },
+                    "kind": "Field",
+                    "name": "0"
+                  }
+                },
+                {
+                  "name": "c",
+                  "value": {
+                    "expr": {
+                      "kind": "Variable",
+                      "name": "i_c"
+                    },
+                    "kind": "Field",
+                    "name": "1"
+                  }
+                }
+              ],
+              "body": {
+                "cond": {
+                  "args": [],
+                  "expr": {
+                    "kind": "Variable",
+                    "name": "c"
+                  },
+                  "kind": "Method",
+                  "name": "is_uppercase"
+                },
+                "else_branch": {
+                  "args": [
+                    {
+                      "kind": "Variable",
+                      "name": "c"
+                    }
+                  ],
+                  "expr": {
+                    "kind": "Variable",
+                    "name": "result"
+                  },
+                  "kind": "Method",
+                  "name": "push"
+                },
+                "kind": "If",
+                "then_branch": {
+                  "exprs": [
+                    {
+                      "cond": {
+                        "kind": "Binary",
+                        "left": {
+                          "kind": "Variable",
+                          "name": "i"
+                        },
+                        "op": ">",
+                        "right": {
+                          "kind": "Literal",
+                          "value": 0
+                        }
+                      },
+                      "else_branch": {
+                        "exprs": [],
+                        "kind": "Block"
+                      },
+                      "kind": "If",
+                      "then_branch": {
+                        "args": [
+                          {
+                            "kind": "Literal",
+                            "value": "_"
+                          }
+                        ],
+                        "expr": {
+                          "kind": "Variable",
+                          "name": "result"
+                        },
+                        "kind": "Method",
+                        "name": "push"
+                      }
+                    },
+                    {
+                      "args": [
+                        {
+                          "args": [],
+                          "expr": {
+                            "kind": "Variable",
+                            "name": "c"
+                          },
+                          "kind": "Method",
+                          "name": "to_ascii_lowercase"
+                        }
+                      ],
+                      "expr": {
+                        "kind": "Variable",
+                        "name": "result"
+                      },
+                      "kind": "Method",
+                      "name": "push"
+                    }
+                  ],
+                  "kind": "Block"
+                }
+              },
+              "kind": "Let"
+            },
+            "iterable": {
+              "args": [],
+              "expr": {
+                "kind": "Variable",
+                "name": "s"
+              },
+              "kind": "Method",
+              "name": "char_indices"
+            },
+            "kind": "For",
+            "var": "i_c"
+          },
+          {
+            "kind": "Variable",
+            "name": "result"
+          }
+        ],
+        "kind": "Block"
+      },
+      "kind": "Let"
+    },
+    "description": "Convert a PascalCase or camelCase string to snake_case",
+    "parameters": [
+      {
+        "description": "The string to convert",
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "pure": true,
+    "returns": {
+      "type": "String"
+    }
+  }
+}

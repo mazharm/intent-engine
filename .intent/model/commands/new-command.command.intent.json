@@ -1,0 +1,52 @@
+{
+  "id": "b0000000-0000-0000-0000-000000000004",
+  "kind": "Command",
+  "name": "NewCommand",
+  "schema_version": "2.0",
+  "spec": {
+    "args": [
+      {
+        "description": "Kind of intent to create",
+        "name": "kind",
+        "positional": true,
+        "possible_values": [
+          "type",
+          "endpoint",
+          "workflow",
+          "service",
+          "contracttest",
+          "migration",
+          "function",
+          "pipeline",
+          "template",
+          "enum",
+          "module",
+          "command",
+          "trait"
+        ],
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Name for the new intent (PascalCase)",
+        "name": "name",
+        "positional": true,
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "command": "new",
+    "description": "Create a new intent file",
+    "exit_codes": [
+      {
+        "code": 0,
+        "description": "Intent created successfully"
+      },
+      {
+        "code": 1,
+        "description": "File already exists or invalid name"
+      }
+    ],
+    "handler": "NewIntentFunction"
+  }
+}

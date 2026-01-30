@@ -1,0 +1,14 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000006",
+  "kind": "Type",
+  "name": "TypeSpec",
+  "schema_version": "2.0",
+  "spec": {
+    "fields": {
+      "fields": {
+        "required": true,
+        "type": "map<string, FieldDef>"
+      }
+    }
+  }
+}

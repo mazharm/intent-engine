@@ -1,0 +1,74 @@
+{
+  "version": "1.0",
+  "files": {
+    "gen/Cargo.toml": {
+      "hash": "4fb4cd26717c92b05d541ffaf67e914b47e2823040be2d9caa0d7e467019d385",
+      "source_intents": []
+    },
+    "gen/src/effects/db.rs": {
+      "hash": "87362395e824356af8b0e407a8d8d4ff8afe1aa3808bbd21fbe1f2fb9b42b204",
+      "source_intents": []
+    },
+    "gen/src/effects/events.rs": {
+      "hash": "0108199a1cc2aa1cfc122b5b9ce92b2cfa8817e59b386011e0e731bbb1dbf190",
+      "source_intents": []
+    },
+    "gen/src/effects/http.rs": {
+      "hash": "dd2983b4a1f20990eb24852a69919de4d02535ce1f734e662a63f28f4d1a3c5a",
+      "source_intents": []
+    },
+    "gen/src/effects/mod.rs": {
+      "hash": "d1403eacc44c5c207cda3946c099054235e9c91c947e6ded6e94b029c810a6d4",
+      "source_intents": []
+    },
+    "gen/src/endpoints/create_refund.rs": {
+      "hash": "90d6ad17b96aa6b4dbe3e4e48385ede1afb66952230a756b05f2342ba86e4de4",
+      "source_intents": []
+    },
+    "gen/src/endpoints/mod.rs": {
+      "hash": "8e8a9df4a922c952b53e8206db90a4e3a6991b137306a2a5e695d33d997a9d60",
+      "source_intents": [
+        "550e8400-e29b-41d4-a716-446655440005"
+      ]
+    },
+    "gen/src/errors.rs": {
+      "hash": "746297d61dd20b02a56ecb76e162a5af3311005b71a1755646c0a7ca434fe1f7",
+      "source_intents": [
+        "550e8400-e29b-41d4-a716-446655440005"
+      ]
+    },
+    "gen/src/lib.rs": {
+      "hash": "45826542a9ba5a454c32f66b968de35a5cc90cee78150bfe2b3e9c30ce6df655",
+      "source_intents": []
+    },
+    "gen/src/types.rs": {
+      "hash": "a79bc7e10a7f930dce9e87607a1707fc6752648e38d1e75e57440cfbff8574d7",
+      "source_intents": [
+        "550e8400-e29b-41d4-a716-446655440002",
+        "a0000000-0000-0000-0000-000000000012",
+        "550e8400-e29b-41d4-a716-446655440001",
+        "a0000000-0000-0000-0000-000000000014",
+        "a0000000-0000-0000-0000-000000000010",
+        "a0000000-0000-0000-0000-000000000008",
+        "a0000000-0000-0000-0000-000000000003",
+        "a0000000-0000-0000-0000-000000000009",
+        "a0000000-0000-0000-0000-000000000013",
+        "a0000000-0000-0000-0000-000000000007",
+        "ce47df9a-3e93-49e5-9d6a-1e9f89fc9ea1",
+        "a0000000-0000-0000-0000-000000000011",
+        "a0000000-0000-0000-0000-000000000006"
+      ]
+    },
+    "gen/src/workflows/mod.rs": {
+      "hash": "1cda843eb564fa678b698692f07d9241a7b6c5dced60cc466a4c14710746eae4",
+      "source_intents": [
+        "550e8400-e29b-41d4-a716-446655440004"
+      ]
+    },
+    "gen/src/workflows/refund_workflow.rs": {
+      "hash": "44afa863d53286f9f36f847c16e5c8cd722e74db41e2c9ec875746e34281b5a1",
+      "source_intents": []
+    }
+  },
+  "source_hashes": {}
+}

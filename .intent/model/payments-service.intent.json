@@ -1,0 +1,18 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440003",
+  "kind": "Service",
+  "name": "Payments",
+  "schema_version": "1.0",
+  "spec": {
+    "base_url": "https://payments.internal",
+    "operations": {
+      "Refund": {
+        "input": "RefundRequest",
+        "method": "POST",
+        "output": "RefundResponse",
+        "path": "/v1/refund"
+      }
+    },
+    "protocol": "http"
+  }
+}

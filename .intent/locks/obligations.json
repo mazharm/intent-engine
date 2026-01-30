@@ -1,0 +1,25 @@
+{
+  "obligations": [
+    {
+      "description": "Add contract test for Payments.Refund",
+      "id": "60717f1d-5f79-4759-85c2-a9f0f44ff46d",
+      "intent_id": "550e8400-e29b-41d4-a716-446655440007",
+      "service_operation": [
+        "Payments",
+        "Refund"
+      ],
+      "severity": "HIGH",
+      "status": "resolved",
+      "type": "ContractTest"
+    },
+    {
+      "description": "Add migration for table 'refunds'",
+      "id": "bf96edbf-365e-45fb-bda1-ff45d0c8f59b",
+      "intent_id": "550e8400-e29b-41d4-a716-446655440006",
+      "severity": "HIGH",
+      "status": "resolved",
+      "table": "refunds",
+      "type": "Migration"
+    }
+  ]
+}

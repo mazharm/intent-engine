@@ -1,0 +1,39 @@
+{
+  "id": "b0000000-0000-0000-0000-000000000003",
+  "kind": "Command",
+  "name": "FmtCommand",
+  "schema_version": "2.0",
+  "spec": {
+    "args": [
+      {
+        "default": false,
+        "description": "Check formatting without writing",
+        "long": "check",
+        "name": "check",
+        "positional": false,
+        "required": false,
+        "type": "bool"
+      },
+      {
+        "description": "Specific file to format",
+        "name": "file",
+        "positional": true,
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "command": "fmt",
+    "description": "Format intent files (canonicalize JSON)",
+    "exit_codes": [
+      {
+        "code": 0,
+        "description": "Success or all files formatted"
+      },
+      {
+        "code": 1,
+        "description": "Files need formatting (with --check)"
+      }
+    ],
+    "handler": "FormatFunction"
+  }
+}

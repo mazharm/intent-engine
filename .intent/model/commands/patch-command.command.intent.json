@@ -1,0 +1,49 @@
+{
+  "id": "b0000000-0000-0000-0000-000000000009",
+  "kind": "Command",
+  "name": "PatchCommand",
+  "schema_version": "2.0",
+  "spec": {
+    "args": [
+      {
+        "description": "Patch action",
+        "name": "action",
+        "positional": true,
+        "possible_values": [
+          "apply"
+        ],
+        "required": true,
+        "type": "string"
+      },
+      {
+        "description": "Path to patch file",
+        "name": "file",
+        "positional": true,
+        "required": true,
+        "type": "string"
+      },
+      {
+        "default": false,
+        "description": "Preview changes without applying",
+        "long": "dry-run",
+        "name": "dry_run",
+        "positional": false,
+        "required": false,
+        "type": "bool"
+      }
+    ],
+    "command": "patch",
+    "description": "Apply a patch file to intents",
+    "exit_codes": [
+      {
+        "code": 0,
+        "description": "Patch applied successfully"
+      },
+      {
+        "code": 4,
+        "description": "Patch conflict"
+      }
+    ],
+    "handler": "ApplyPatchFunction"
+  }
+}

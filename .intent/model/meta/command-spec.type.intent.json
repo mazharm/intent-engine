@@ -1,0 +1,34 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000012",
+  "kind": "Type",
+  "name": "CommandSpec",
+  "schema_version": "2.0",
+  "spec": {
+    "fields": {
+      "aliases": {
+        "required": false,
+        "type": "array<string>"
+      },
+      "args": {
+        "required": false,
+        "type": "array<CommandArg>"
+      },
+      "command": {
+        "required": true,
+        "type": "string"
+      },
+      "description": {
+        "required": false,
+        "type": "string"
+      },
+      "exit_codes": {
+        "required": false,
+        "type": "array<ExitCode>"
+      },
+      "handler": {
+        "required": true,
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "intent_to_rust": {
+    "550e8400-e29b-41d4-a716-446655440001": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 30,
+        "symbol": "RefundRequest"
+      }
+    ],
+    "550e8400-e29b-41d4-a716-446655440002": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 10,
+        "symbol": "RefundResponse"
+      }
+    ],
+    "550e8400-e29b-41d4-a716-446655440004": [
+      {
+        "file": "gen/src/workflows/refund_workflow.rs",
+        "line": 10,
+        "symbol": "refund_workflow"
+      }
+    ],
+    "550e8400-e29b-41d4-a716-446655440005": [
+      {
+        "file": "gen/src/endpoints/create_refund.rs",
+        "line": 10,
+        "symbol": "create_refund"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000003": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 70,
+        "symbol": "IntentDocument"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000006": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 130,
+        "symbol": "TypeSpec"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000007": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 100,
+        "symbol": "FieldDef"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000008": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 60,
+        "symbol": "FunctionSpec"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000009": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 80,
+        "symbol": "PipelineSpec"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000010": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 50,
+        "symbol": "TemplateSpec"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000011": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 120,
+        "symbol": "EnumSpec"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000012": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 20,
+        "symbol": "CommandSpec"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000013": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 90,
+        "symbol": "ValidationResult"
+      }
+    ],
+    "a0000000-0000-0000-0000-000000000014": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 40,
+        "symbol": "StructuredError"
+      }
+    ],
+    "ce47df9a-3e93-49e5-9d6a-1e9f89fc9ea1": [
+      {
+        "file": "gen/src/types.rs",
+        "line": 110,
+        "symbol": "TestNewType"
+      }
+    ]
+  },
+  "rust_to_intent": {
+    "gen/src/endpoints/create_refund.rs:10": "550e8400-e29b-41d4-a716-446655440005",
+    "gen/src/types.rs:10": "550e8400-e29b-41d4-a716-446655440002",
+    "gen/src/types.rs:100": "a0000000-0000-0000-0000-000000000007",
+    "gen/src/types.rs:110": "ce47df9a-3e93-49e5-9d6a-1e9f89fc9ea1",
+    "gen/src/types.rs:120": "a0000000-0000-0000-0000-000000000011",
+    "gen/src/types.rs:130": "a0000000-0000-0000-0000-000000000006",
+    "gen/src/types.rs:20": "a0000000-0000-0000-0000-000000000012",
+    "gen/src/types.rs:30": "550e8400-e29b-41d4-a716-446655440001",
+    "gen/src/types.rs:40": "a0000000-0000-0000-0000-000000000014",
+    "gen/src/types.rs:50": "a0000000-0000-0000-0000-000000000010",
+    "gen/src/types.rs:60": "a0000000-0000-0000-0000-000000000008",
+    "gen/src/types.rs:70": "a0000000-0000-0000-0000-000000000003",
+    "gen/src/types.rs:80": "a0000000-0000-0000-0000-000000000009",
+    "gen/src/types.rs:90": "a0000000-0000-0000-0000-000000000013",
+    "gen/src/workflows/refund_workflow.rs:10": "550e8400-e29b-41d4-a716-446655440004"
+  }
+}

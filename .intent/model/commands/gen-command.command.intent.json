@@ -1,0 +1,43 @@
+{
+  "id": "b0000000-0000-0000-0000-000000000001",
+  "kind": "Command",
+  "name": "GenCommand",
+  "schema_version": "2.0",
+  "spec": {
+    "args": [
+      {
+        "default": false,
+        "description": "Check if generated code matches without writing",
+        "long": "check",
+        "name": "check",
+        "positional": false,
+        "required": false,
+        "short": "c",
+        "type": "bool"
+      },
+      {
+        "default": "gen/",
+        "description": "Output directory",
+        "long": "output",
+        "name": "output",
+        "positional": false,
+        "required": false,
+        "short": "o",
+        "type": "string"
+      }
+    ],
+    "command": "gen",
+    "description": "Generate Rust code from intents",
+    "exit_codes": [
+      {
+        "code": 0,
+        "description": "Success"
+      },
+      {
+        "code": 3,
+        "description": "Generation mismatch (with --check)"
+      }
+    ],
+    "handler": "GenerationPipeline"
+  }
+}

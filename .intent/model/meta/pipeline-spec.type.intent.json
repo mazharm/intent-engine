@@ -1,0 +1,30 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000009",
+  "kind": "Type",
+  "name": "PipelineSpec",
+  "schema_version": "2.0",
+  "spec": {
+    "fields": {
+      "description": {
+        "required": false,
+        "type": "string"
+      },
+      "input": {
+        "required": true,
+        "type": "string"
+      },
+      "merge_results": {
+        "required": false,
+        "type": "bool"
+      },
+      "output": {
+        "required": true,
+        "type": "string"
+      },
+      "stages": {
+        "required": true,
+        "type": "array<PipelineStage>"
+      }
+    }
+  }
+}

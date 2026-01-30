@@ -1,0 +1,34 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000010",
+  "kind": "Type",
+  "name": "TemplateSpec",
+  "schema_version": "2.0",
+  "spec": {
+    "fields": {
+      "description": {
+        "required": false,
+        "type": "string"
+      },
+      "helpers": {
+        "required": false,
+        "type": "array<TemplateHelper>"
+      },
+      "input": {
+        "required": true,
+        "type": "string"
+      },
+      "output_file": {
+        "required": true,
+        "type": "string"
+      },
+      "partials": {
+        "required": false,
+        "type": "map<string, array<string>>"
+      },
+      "template": {
+        "required": true,
+        "type": "array<string>"
+      }
+    }
+  }
+}

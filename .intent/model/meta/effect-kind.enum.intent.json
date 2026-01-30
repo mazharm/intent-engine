@@ -1,0 +1,40 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000015",
+  "kind": "Enum",
+  "name": "EffectKind",
+  "schema_version": "2.0",
+  "spec": {
+    "derives": [
+      "Debug",
+      "Clone",
+      "Copy",
+      "PartialEq",
+      "Eq",
+      "Serialize",
+      "Deserialize"
+    ],
+    "description": "Types of side effects in workflows",
+    "variants": [
+      {
+        "description": "Outbound HTTP call to an external service",
+        "name": "HttpCall"
+      },
+      {
+        "description": "Read from database",
+        "name": "DbRead"
+      },
+      {
+        "description": "Write to database",
+        "name": "DbWrite"
+      },
+      {
+        "description": "Delete from database",
+        "name": "DbDelete"
+      },
+      {
+        "description": "Publish event to a topic",
+        "name": "EmitEvent"
+      }
+    ]
+  }
+}

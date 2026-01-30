@@ -1,0 +1,37 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440005",
+  "kind": "Endpoint",
+  "name": "CreateRefund",
+  "schema_version": "1.0",
+  "spec": {
+    "authz": {
+      "principal": "user",
+      "scope": "refund:write"
+    },
+    "errors": [
+      {
+        "code": "INVALID_INPUT",
+        "retryable": false,
+        "status": 400
+      },
+      {
+        "code": "PAYMENT_FAILED",
+        "retryable": true,
+        "status": 502
+      }
+    ],
+    "idempotency_key": "order_id",
+    "input": "RefundRequest",
+    "method": "POST",
+    "output": "RefundResponse",
+    "path": "/refund",
+    "policies": {
+      "retries": {
+        "backoff": "exponential",
+        "max": 3
+      },
+      "timeout_ms": 1500
+    },
+    "workflow": "RefundWorkflow"
+  }
+}

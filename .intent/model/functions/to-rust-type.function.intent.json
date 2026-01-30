@@ -1,0 +1,225 @@
+{
+  "id": "f0000000-0000-0000-0000-000000000002",
+  "kind": "Function",
+  "name": "ToRustType",
+  "schema_version": "2.0",
+  "spec": {
+    "body": {
+      "arms": [
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "String"
+          },
+          "pattern": {
+            "kind": "Variant",
+            "variant": "String"
+          }
+        },
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "i64"
+          },
+          "pattern": {
+            "kind": "Variant",
+            "variant": "Int"
+          }
+        },
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "f64"
+          },
+          "pattern": {
+            "kind": "Variant",
+            "variant": "Float"
+          }
+        },
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "bool"
+          },
+          "pattern": {
+            "kind": "Variant",
+            "variant": "Bool"
+          }
+        },
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "rust_decimal::Decimal"
+          },
+          "pattern": {
+            "kind": "Variant",
+            "variant": "Money"
+          }
+        },
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "chrono::DateTime<chrono::Utc>"
+          },
+          "pattern": {
+            "kind": "Variant",
+            "variant": "DateTime"
+          }
+        },
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "uuid::Uuid"
+          },
+          "pattern": {
+            "kind": "Variant",
+            "variant": "Uuid"
+          }
+        },
+        {
+          "body": {
+            "kind": "Literal",
+            "value": "Vec<u8>"
+          },
+          "pattern": {
+            "kind": "Variant",
+            "variant": "Bytes"
+          }
+        },
+        {
+          "body": {
+            "args": [
+              {
+                "kind": "Literal",
+                "value": "Vec<{}>"
+              },
+              {
+                "args": [
+                  {
+                    "kind": "Variable",
+                    "name": "inner"
+                  }
+                ],
+                "function": "ToRustType",
+                "kind": "Call"
+              }
+            ],
+            "function": "format",
+            "kind": "Call"
+          },
+          "pattern": {
+            "bindings": [
+              "inner"
+            ],
+            "kind": "Variant",
+            "variant": "Array"
+          }
+        },
+        {
+          "body": {
+            "args": [
+              {
+                "kind": "Literal",
+                "value": "std::collections::HashMap<{}, {}>"
+              },
+              {
+                "args": [
+                  {
+                    "kind": "Variable",
+                    "name": "k"
+                  }
+                ],
+                "function": "ToRustType",
+                "kind": "Call"
+              },
+              {
+                "args": [
+                  {
+                    "kind": "Variable",
+                    "name": "v"
+                  }
+                ],
+                "function": "ToRustType",
+                "kind": "Call"
+              }
+            ],
+            "function": "format",
+            "kind": "Call"
+          },
+          "pattern": {
+            "bindings": [
+              "k",
+              "v"
+            ],
+            "kind": "Variant",
+            "variant": "Map"
+          }
+        },
+        {
+          "body": {
+            "args": [
+              {
+                "kind": "Literal",
+                "value": "Option<{}>"
+              },
+              {
+                "args": [
+                  {
+                    "kind": "Variable",
+                    "name": "inner"
+                  }
+                ],
+                "function": "ToRustType",
+                "kind": "Call"
+              }
+            ],
+            "function": "format",
+            "kind": "Call"
+          },
+          "pattern": {
+            "bindings": [
+              "inner"
+            ],
+            "kind": "Variant",
+            "variant": "Optional"
+          }
+        },
+        {
+          "body": {
+            "args": [],
+            "expr": {
+              "kind": "Variable",
+              "name": "name"
+            },
+            "kind": "Method",
+            "name": "clone"
+          },
+          "pattern": {
+            "bindings": [
+              "name"
+            ],
+            "kind": "Variant",
+            "variant": "Named"
+          }
+        }
+      ],
+      "kind": "Match",
+      "on": {
+        "kind": "Variable",
+        "name": "type_ref"
+      }
+    },
+    "description": "Convert a TypeRef to its Rust type string representation",
+    "parameters": [
+      {
+        "description": "The type reference to convert",
+        "name": "type_ref",
+        "type": "TypeRef"
+      }
+    ],
+    "pure": true,
+    "returns": {
+      "type": "String"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "id": "b0000000-0000-0000-0000-000000000005",
+  "kind": "Command",
+  "name": "ListCommand",
+  "schema_version": "2.0",
+  "spec": {
+    "args": [
+      {
+        "description": "Filter by intent kind",
+        "long": "kind",
+        "name": "kind",
+        "positional": false,
+        "required": false,
+        "short": "k",
+        "type": "string"
+      },
+      {
+        "default": "human",
+        "description": "Output format",
+        "long": "format",
+        "name": "format",
+        "positional": false,
+        "possible_values": [
+          "human",
+          "json"
+        ],
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "command": "list",
+    "description": "List all intents",
+    "exit_codes": [
+      {
+        "code": 0,
+        "description": "Success"
+      }
+    ],
+    "handler": "ListIntentsFunction"
+  }
+}

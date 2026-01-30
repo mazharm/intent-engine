@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://intent-engine.dev/schema/intent-1.0.json",
+  "title": "Intent Document",
+  "description": "Schema for Intent-first programming system documents",
+  "type": "object",
+  "required": ["schema_version", "id", "kind", "name", "spec"],
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "description": "Schema version"
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this intent"
+    },
+    "kind": {
+      "enum": ["Type", "Endpoint", "Workflow", "Service", "ContractTest", "Migration"],
+      "description": "The kind of intent"
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[A-Z][a-zA-Z0-9]*$",
+      "description": "Human-readable name (PascalCase)"
+    },
+    "spec": {
+      "type": "object",
+      "description": "Kind-specific specification"
+    }
+  },
+  "additionalProperties": false
+}

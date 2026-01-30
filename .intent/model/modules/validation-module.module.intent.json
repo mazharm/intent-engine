@@ -1,0 +1,71 @@
+{
+  "id": "e0000000-0000-0000-0000-000000000003",
+  "kind": "Module",
+  "name": "ValidationModule",
+  "schema_version": "2.0",
+  "spec": {
+    "children": [
+      {
+        "file": "resolve.rs",
+        "name": "resolve",
+        "public": true
+      },
+      {
+        "file": "typecheck.rs",
+        "name": "typecheck",
+        "public": true
+      },
+      {
+        "file": "effects.rs",
+        "name": "effects",
+        "public": true
+      },
+      {
+        "file": "policies.rs",
+        "name": "policies",
+        "public": true
+      },
+      {
+        "file": "security.rs",
+        "name": "security",
+        "public": true
+      },
+      {
+        "file": "obligations.rs",
+        "name": "obligations",
+        "public": true
+      },
+      {
+        "file": "result.rs",
+        "name": "result",
+        "public": true
+      }
+    ],
+    "description": "Multi-phase validation for intents",
+    "path": "src/validation",
+    "public": [
+      "validate_all",
+      "ValidationResult",
+      "resolve_references",
+      "ResolvedGraph",
+      "typecheck",
+      "analyze_effects",
+      "EffectAnalysis",
+      "analyze_policies",
+      "check_security",
+      "check_obligations",
+      "Obligation",
+      "ObligationType",
+      "ObligationStatus"
+    ],
+    "re_exports": [
+      "resolve::*",
+      "typecheck::*",
+      "effects::*",
+      "policies::*",
+      "security::*",
+      "obligations::*",
+      "result::*"
+    ]
+  }
+}

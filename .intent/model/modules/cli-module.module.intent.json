@@ -1,0 +1,26 @@
+{
+  "id": "e0000000-0000-0000-0000-000000000006",
+  "kind": "Module",
+  "name": "CliModule",
+  "schema_version": "2.0",
+  "spec": {
+    "children": [
+      {
+        "file": "commands.rs",
+        "name": "commands",
+        "public": true
+      }
+    ],
+    "description": "CLI command handlers",
+    "path": "src/cli",
+    "public": [
+      "run",
+      "Cli",
+      "Commands",
+      "OutputFormat"
+    ],
+    "re_exports": [
+      "commands::*"
+    ]
+  }
+}

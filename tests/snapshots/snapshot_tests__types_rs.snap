@@ -1,0 +1,18 @@
+---
+source: tests/snapshot_tests.rs
+expression: content
+---
+use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RefundRequest {
+    pub amount: rust_decimal::Decimal,
+    pub order_id: uuid::Uuid,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub reason: Option<Option<String>>,
+}
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RefundResponse {
+    pub refund_id: uuid::Uuid,
+    pub status: String,
+}

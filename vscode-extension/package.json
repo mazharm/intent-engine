@@ -1,0 +1,103 @@
+{
+  "name": "intent-engine",
+  "displayName": "Intent Engine",
+  "description": "VS Code extension for the Intent-first programming system",
+  "version": "0.1.0",
+  "publisher": "intent-engine",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:.intent/model"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "intent-json",
+        "aliases": ["Intent JSON"],
+        "extensions": [".intent.json"],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "intent-json",
+        "scopeName": "source.intent.json",
+        "path": "./syntaxes/intent.json.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "intent.validate",
+        "title": "Intent: Validate"
+      },
+      {
+        "command": "intent.generate",
+        "title": "Intent: Generate"
+      },
+      {
+        "command": "intent.format",
+        "title": "Intent: Format"
+      },
+      {
+        "command": "intent.newIntent",
+        "title": "Intent: New Intent"
+      },
+      {
+        "command": "intent.showDiff",
+        "title": "Intent: Show Semantic Diff"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "intentTree",
+          "name": "Intent Model",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "id": "obligationsPanel",
+          "name": "Obligations",
+          "when": "workspaceFolderCount > 0"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Intent Engine",
+      "properties": {
+        "intent.enginePath": {
+          "type": "string",
+          "default": "intent-engine",
+          "description": "Path to the intent-engine binary"
+        },
+        "intent.formatOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Format intent files on save"
+        },
+        "intent.validateOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate intent files on save"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  }
+}

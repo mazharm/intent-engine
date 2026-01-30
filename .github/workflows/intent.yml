@@ -1,0 +1,38 @@
+name: intent
+
+on: [push, pull_request]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build intent-engine
+        run: cargo build --release
+
+      - name: Verify intents
+        run: ./target/release/intent-engine verify
+
+      - name: Run tests
+        run: cargo test
+
+      - name: Run generated code tests
+        run: |
+          if [ -d "gen" ]; then
+            cargo test --manifest-path gen/Cargo.toml
+          fi

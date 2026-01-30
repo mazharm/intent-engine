@@ -1,0 +1,45 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000016",
+  "kind": "Enum",
+  "name": "HttpMethod",
+  "schema_version": "2.0",
+  "spec": {
+    "derives": [
+      "Debug",
+      "Clone",
+      "Copy",
+      "PartialEq",
+      "Eq",
+      "Serialize",
+      "Deserialize"
+    ],
+    "description": "HTTP methods for endpoints and service operations",
+    "variants": [
+      {
+        "description": "HTTP GET",
+        "name": "Get",
+        "serde_rename": "GET"
+      },
+      {
+        "description": "HTTP POST",
+        "name": "Post",
+        "serde_rename": "POST"
+      },
+      {
+        "description": "HTTP PUT",
+        "name": "Put",
+        "serde_rename": "PUT"
+      },
+      {
+        "description": "HTTP PATCH",
+        "name": "Patch",
+        "serde_rename": "PATCH"
+      },
+      {
+        "description": "HTTP DELETE",
+        "name": "Delete",
+        "serde_rename": "DELETE"
+      }
+    ]
+  }
+}

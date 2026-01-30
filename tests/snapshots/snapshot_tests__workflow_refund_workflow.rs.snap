@@ -1,0 +1,21 @@
+---
+source: tests/snapshot_tests.rs
+expression: "&file.content"
+---
+use crate::types::{RefundRequest, RefundResponse};
+#[derive(Debug, Default)]
+struct Context {
+    pub refund_id: Option<uuid::Uuid>,
+    pub validated_amount: Option<rust_decimal::Decimal>,
+}
+pub async fn refund_workflow(
+    input: RefundRequest,
+) -> Result<RefundResponse, anyhow::Error> {
+    let mut context = Context {
+        refund_id: None,
+        validated_amount: None,
+    };
+    let _result = crate::effects::http::call("Payments", "Refund", &input).await;
+    crate::effects::db::write("refunds", &context).await?;
+    todo!("Map workflow result to output type")
+}

@@ -1,0 +1,30 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000003",
+  "kind": "Type",
+  "name": "IntentDocument",
+  "schema_version": "2.0",
+  "spec": {
+    "fields": {
+      "id": {
+        "required": true,
+        "type": "uuid"
+      },
+      "kind": {
+        "required": true,
+        "type": "IntentKind"
+      },
+      "name": {
+        "required": true,
+        "type": "string"
+      },
+      "schema_version": {
+        "required": true,
+        "type": "string"
+      },
+      "spec": {
+        "required": true,
+        "type": "JsonValue"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000007",
+  "kind": "Type",
+  "name": "FieldDef",
+  "schema_version": "2.0",
+  "spec": {
+    "fields": {
+      "field_type": {
+        "required": true,
+        "type": "TypeRef"
+      },
+      "required": {
+        "required": false,
+        "type": "bool"
+      }
+    }
+  }
+}

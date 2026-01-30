@@ -1,0 +1,52 @@
+[package]
+name = "intent-engine"
+version = "0.1.0"
+edition = "2021"
+description = "Intent-first programming system - compiler from Intent to Rust"
+license = "MIT"
+
+[dependencies]
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# CLI
+clap = { version = "4.4", features = ["derive"] }
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Utilities
+uuid = { version = "1.6", features = ["v4", "serde"] }
+sha2 = "0.10"
+hex = "0.4"
+chrono = { version = "0.4", features = ["serde"] }
+rust_decimal = { version = "1.33", features = ["serde"] }
+
+# File system
+walkdir = "2.4"
+glob = "0.3"
+tempfile = "3.9"
+
+# Logging
+tracing = "0.1"
+
+# Diffing
+similar = "2.3"
+
+# Code generation
+quote = "1.0"
+proc-macro2 = "1.0"
+prettyplease = "0.2"
+syn = { version = "2.0", features = ["full", "parsing"] }
+
+# Git operations (for diff)
+git2 = "0.18"
+
+[dev-dependencies]
+insta = { version = "1.34", features = ["json"] }
+assert_cmd = "2.0"
+predicates = "3.0"
+tempfile = "3.9"

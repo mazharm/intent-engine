@@ -1,0 +1,81 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000002",
+  "kind": "Enum",
+  "name": "TypeRef",
+  "schema_version": "2.0",
+  "spec": {
+    "derives": [
+      "Debug",
+      "Clone",
+      "PartialEq",
+      "Eq",
+      "Serialize",
+      "Deserialize"
+    ],
+    "description": "A reference to a type - either primitive, collection, or named reference",
+    "serde_tag": "kind",
+    "variants": [
+      {
+        "description": "UTF-8 text - maps to Rust String",
+        "name": "String"
+      },
+      {
+        "description": "64-bit signed integer - maps to Rust i64",
+        "name": "Int"
+      },
+      {
+        "description": "64-bit floating point - maps to Rust f64",
+        "name": "Float"
+      },
+      {
+        "description": "Boolean - maps to Rust bool",
+        "name": "Bool"
+      },
+      {
+        "description": "Arbitrary precision decimal - maps to rust_decimal::Decimal",
+        "name": "Money"
+      },
+      {
+        "description": "UTC timestamp - maps to chrono::DateTime<Utc>",
+        "name": "DateTime"
+      },
+      {
+        "description": "UUID v4 - maps to uuid::Uuid",
+        "name": "Uuid"
+      },
+      {
+        "description": "Raw binary data - maps to Vec<u8>",
+        "name": "Bytes"
+      },
+      {
+        "data": {
+          "inner": "Box<TypeRef>"
+        },
+        "description": "Ordered collection - maps to Vec<T>",
+        "name": "Array"
+      },
+      {
+        "data": {
+          "key": "Box<TypeRef>",
+          "value": "Box<TypeRef>"
+        },
+        "description": "Key-value collection - maps to HashMap<K, V>",
+        "name": "Map"
+      },
+      {
+        "data": {
+          "inner": "Box<TypeRef>"
+        },
+        "description": "Optional value - maps to Option<T>",
+        "name": "Optional"
+      },
+      {
+        "data": {
+          "name": "String"
+        },
+        "description": "Reference to another Type intent by name",
+        "name": "Named"
+      }
+    ]
+  }
+}

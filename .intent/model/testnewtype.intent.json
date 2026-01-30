@@ -1,0 +1,14 @@
+{
+  "id": "ce47df9a-3e93-49e5-9d6a-1e9f89fc9ea1",
+  "kind": "Type",
+  "name": "TestNewType",
+  "schema_version": "1.0",
+  "spec": {
+    "fields": {
+      "value": {
+        "required": true,
+        "type": "string"
+      }
+    }
+  }
+}

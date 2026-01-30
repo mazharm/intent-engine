@@ -1,0 +1,43 @@
+{
+  "id": "b0000000-0000-0000-0000-000000000006",
+  "kind": "Command",
+  "name": "ShowCommand",
+  "schema_version": "2.0",
+  "spec": {
+    "args": [
+      {
+        "description": "Name of the intent to show",
+        "name": "name",
+        "positional": true,
+        "required": true,
+        "type": "string"
+      },
+      {
+        "default": "human",
+        "description": "Output format",
+        "long": "format",
+        "name": "format",
+        "positional": false,
+        "possible_values": [
+          "human",
+          "json"
+        ],
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "command": "show",
+    "description": "Show details of a specific intent",
+    "exit_codes": [
+      {
+        "code": 0,
+        "description": "Success"
+      },
+      {
+        "code": 1,
+        "description": "Intent not found"
+      }
+    ],
+    "handler": "ShowIntentFunction"
+  }
+}

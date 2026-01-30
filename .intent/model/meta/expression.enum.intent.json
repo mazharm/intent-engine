@@ -1,0 +1,183 @@
+{
+  "id": "a0000000-0000-0000-0000-000000000004",
+  "kind": "Enum",
+  "name": "Expression",
+  "schema_version": "2.0",
+  "spec": {
+    "derives": [
+      "Debug",
+      "Clone",
+      "Serialize",
+      "Deserialize"
+    ],
+    "description": "An expression in the intent expression language for function bodies",
+    "serde_tag": "kind",
+    "variants": [
+      {
+        "data": {
+          "value": "JsonValue"
+        },
+        "description": "Literal value (string, number, boolean, null)",
+        "name": "Literal"
+      },
+      {
+        "data": {
+          "name": "String"
+        },
+        "description": "Variable reference (e.g., input, context.amount)",
+        "name": "Variable"
+      },
+      {
+        "data": {
+          "expr": "Box<Expression>",
+          "name": "String"
+        },
+        "description": "Field access (e.g., expr.field)",
+        "name": "Field"
+      },
+      {
+        "data": {
+          "expr": "Box<Expression>",
+          "index": "Box<Expression>"
+        },
+        "description": "Index access (e.g., expr[0] or expr[key])",
+        "name": "Index"
+      },
+      {
+        "data": {
+          "args": "Vec<Expression>",
+          "function": "String"
+        },
+        "description": "Function call (e.g., parse(s))",
+        "name": "Call"
+      },
+      {
+        "data": {
+          "args": "Vec<Expression>",
+          "expr": "Box<Expression>",
+          "name": "String"
+        },
+        "description": "Method call (e.g., s.trim())",
+        "name": "Method"
+      },
+      {
+        "data": {
+          "left": "Box<Expression>",
+          "op": "BinaryOp",
+          "right": "Box<Expression>"
+        },
+        "description": "Binary operation (e.g., a + b, x == y)",
+        "name": "Binary"
+      },
+      {
+        "data": {
+          "expr": "Box<Expression>",
+          "op": "UnaryOp"
+        },
+        "description": "Unary operation (e.g., !x, -y)",
+        "name": "Unary"
+      },
+      {
+        "data": {
+          "cond": "Box<Expression>",
+          "else_branch": "Box<Expression>",
+          "then_branch": "Box<Expression>"
+        },
+        "description": "Conditional (if-then-else)",
+        "name": "If"
+      },
+      {
+        "data": {
+          "arms": "Vec<MatchArm>",
+          "on": "Box<Expression>"
+        },
+        "description": "Pattern matching",
+        "name": "Match"
+      },
+      {
+        "data": {
+          "bindings": "Vec<LetBinding>",
+          "body": "Box<Expression>"
+        },
+        "description": "Local variable bindings",
+        "name": "Let"
+      },
+      {
+        "data": {
+          "body": "Box<Expression>",
+          "iterable": "Box<Expression>",
+          "var": "String"
+        },
+        "description": "Iteration",
+        "name": "For"
+      },
+      {
+        "data": {
+          "value": "Box<Expression>"
+        },
+        "description": "Early return",
+        "name": "Return"
+      },
+      {
+        "data": {
+          "error": "String",
+          "message": "Option<Box<Expression>>"
+        },
+        "description": "Raise an error",
+        "name": "Raise"
+      },
+      {
+        "data": {
+          "exprs": "Vec<Expression>"
+        },
+        "description": "Block of expressions (last expression is the result)",
+        "name": "Block"
+      },
+      {
+        "data": {
+          "fields": "HashMap<String, Expression>",
+          "name": "String"
+        },
+        "description": "Struct/record construction",
+        "name": "Struct"
+      },
+      {
+        "data": {
+          "elements": "Vec<Expression>"
+        },
+        "description": "Array/Vec construction",
+        "name": "Array"
+      },
+      {
+        "data": {
+          "elements": "Vec<Expression>"
+        },
+        "description": "Tuple construction",
+        "name": "Tuple"
+      },
+      {
+        "data": {
+          "body": "Box<Expression>",
+          "params": "Vec<String>"
+        },
+        "description": "Closure/lambda",
+        "name": "Closure"
+      },
+      {
+        "data": {
+          "expr": "Box<Expression>"
+        },
+        "description": "Try expression (? operator equivalent)",
+        "name": "Try"
+      },
+      {
+        "data": {
+          "default": "Box<Expression>",
+          "expr": "Box<Expression>"
+        },
+        "description": "Unwrap with default",
+        "name": "UnwrapOr"
+      }
+    ]
+  }
+}

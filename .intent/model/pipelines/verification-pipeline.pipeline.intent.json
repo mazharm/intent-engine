@@ -1,0 +1,34 @@
+{
+  "id": "c0000000-0000-0000-0000-000000000003",
+  "kind": "Pipeline",
+  "name": "VerificationPipeline",
+  "schema_version": "2.0",
+  "spec": {
+    "description": "Full verification pipeline - fmt check + validate + gen check + obligations",
+    "input": "IntentStore",
+    "merge_results": true,
+    "output": "VerificationResult",
+    "stages": [
+      {
+        "function": "FormatCheck",
+        "name": "format_check",
+        "on_error": "abort"
+      },
+      {
+        "function": "ValidationPipeline",
+        "name": "validate",
+        "on_error": "abort"
+      },
+      {
+        "function": "GenerationCheck",
+        "name": "generation_check",
+        "on_error": "abort"
+      },
+      {
+        "function": "ObligationsCheck",
+        "name": "obligations_check",
+        "on_error": "abort"
+      }
+    ]
+  }
+}

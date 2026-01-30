@@ -1,0 +1,64 @@
+{
+  "id": "c0000000-0000-0000-0000-000000000002",
+  "kind": "Pipeline",
+  "name": "GenerationPipeline",
+  "schema_version": "2.0",
+  "spec": {
+    "description": "Code generation pipeline - generates Rust from intents",
+    "input": "IntentStore",
+    "merge_results": false,
+    "output": "GenerationResult",
+    "stages": [
+      {
+        "function": "ValidationPipeline",
+        "name": "validate",
+        "on_error": "abort"
+      },
+      {
+        "function": "GenerateTypes",
+        "name": "generate_types",
+        "on_error": "abort"
+      },
+      {
+        "function": "GenerateEnums",
+        "name": "generate_enums",
+        "on_error": "abort"
+      },
+      {
+        "function": "GenerateEndpoints",
+        "name": "generate_endpoints",
+        "on_error": "abort"
+      },
+      {
+        "function": "GenerateWorkflows",
+        "name": "generate_workflows",
+        "on_error": "abort"
+      },
+      {
+        "function": "GenerateEffects",
+        "name": "generate_effects",
+        "on_error": "abort"
+      },
+      {
+        "function": "GenerateErrors",
+        "name": "generate_errors",
+        "on_error": "abort"
+      },
+      {
+        "function": "GenerateCrateFiles",
+        "name": "generate_crate",
+        "on_error": "abort"
+      },
+      {
+        "function": "WriteTraceMap",
+        "name": "write_trace_map",
+        "on_error": "continue"
+      },
+      {
+        "function": "WriteManifest",
+        "name": "write_manifest",
+        "on_error": "continue"
+      }
+    ]
+  }
+}

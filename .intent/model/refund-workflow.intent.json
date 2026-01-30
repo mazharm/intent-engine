@@ -1,0 +1,47 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440004",
+  "kind": "Workflow",
+  "name": "RefundWorkflow",
+  "schema_version": "1.0",
+  "spec": {
+    "context": {
+      "refund_id": "uuid",
+      "validated_amount": "money"
+    },
+    "input": "RefundRequest",
+    "output": "RefundResponse",
+    "steps": [
+      {
+        "assign": {
+          "refund_id": "uuid_generate()",
+          "validated_amount": "input.amount"
+        },
+        "kind": "Transform",
+        "name": "validate_input"
+      },
+      {
+        "effect": "HttpCall",
+        "input_mapping": {
+          "amount": "context.validated_amount",
+          "order_id": "input.order_id"
+        },
+        "kind": "Effect",
+        "on_error": "abort",
+        "operation": "Refund",
+        "output_binding": "refund_result",
+        "service": "Payments"
+      },
+      {
+        "effect": "DbWrite",
+        "input_mapping": {
+          "amount": "context.validated_amount",
+          "id": "context.refund_id",
+          "status": "'pending'"
+        },
+        "kind": "Effect",
+        "on_error": "abort",
+        "table": "refunds"
+      }
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440006",
+  "kind": "Migration",
+  "name": "CreateRefundsTable",
+  "schema_version": "1.0",
+  "spec": {
+    "operations": [
+      {
+        "columns": [
+          {
+            "name": "id",
+            "primary_key": true,
+            "type": "uuid"
+          },
+          {
+            "name": "amount",
+            "nullable": false,
+            "type": "money"
+          },
+          {
+            "name": "status",
+            "nullable": false,
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "nullable": false,
+            "type": "datetime"
+          }
+        ],
+        "op": "create_table"
+      }
+    ],
+    "table": "refunds",
+    "version": 1
+  }
+}

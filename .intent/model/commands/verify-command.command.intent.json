@@ -1,0 +1,48 @@
+{
+  "id": "b0000000-0000-0000-0000-000000000008",
+  "kind": "Command",
+  "name": "VerifyCommand",
+  "schema_version": "2.0",
+  "spec": {
+    "args": [
+      {
+        "default": "human",
+        "description": "Output format",
+        "long": "format",
+        "name": "format",
+        "positional": false,
+        "possible_values": [
+          "human",
+          "json"
+        ],
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "command": "verify",
+    "description": "Full verification (fmt check + validate + gen check + obligations)",
+    "exit_codes": [
+      {
+        "code": 0,
+        "description": "All checks passed"
+      },
+      {
+        "code": 1,
+        "description": "Format check failed"
+      },
+      {
+        "code": 2,
+        "description": "Validation failed"
+      },
+      {
+        "code": 3,
+        "description": "Generation mismatch"
+      },
+      {
+        "code": 5,
+        "description": "Open HIGH-severity obligations"
+      }
+    ],
+    "handler": "VerificationPipeline"
+  }
+}
