@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0010-4000-8000-000000000010",
+  "kind": "Service",
+  "name": "NotificationService",
+  "spec": {
+    "protocol": "http",
+    "base_url": "https://notifications.internal.example.com",
+    "operations": {
+      "sendEmail": {
+        "method": "POST",
+        "path": "/email",
+        "input": "EmailRequest",
+        "output": "EmailResponse"
+      }
+    }
+  }
+}

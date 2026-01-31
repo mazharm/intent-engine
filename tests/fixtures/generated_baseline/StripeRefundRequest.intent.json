@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0005-4000-8000-000000000005",
+  "kind": "Type",
+  "name": "StripeRefundRequest",
+  "spec": {
+    "fields": {
+      "charge_id": { "type": "string", "required": true },
+      "amount": { "type": "money", "required": true },
+      "reason": { "type": "string", "required": false }
+    }
+  }
+}

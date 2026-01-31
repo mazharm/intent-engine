@@ -1,51 +1,96 @@
 # Intent Engine Quick Reference
 
-## CLI Commands
+## Slash Commands
+
+All intent-engine functionality is available through slash commands in Claude Code.
+
+### Getting Started
 
 ```bash
-# Create new intent
-intent-engine new Type MyType
-intent-engine new Endpoint CreateUser
-intent-engine new Workflow UserOnboarding
+# Greenfield: Convert a spec document to intent files
+/baseline spec.md
 
-# List and inspect
-intent-engine list                    # List all intents
-intent-engine list --kind Type        # Filter by kind
-intent-engine show MyType             # Show details
+# Brownfield: Extract intents from existing code
+/intent-extract src/
 
-# Format and validate
-intent-engine fmt                     # Format all files
-intent-engine fmt --check             # Check formatting (CI)
-intent-engine validate                # Validate all intents
-
-# Generate code
-intent-engine gen                     # Generate to gen/
-intent-engine gen --check             # Check for drift (CI)
-
-# Diff and verify
-intent-engine diff --base main        # Semantic diff
-intent-engine verify                  # Full verification (CI)
-
-# Patch operations
-intent-engine patch apply file.json   # Apply patch
-intent-engine patch apply file.json --dry-run  # Preview
+# Create a new intent
+/intent-new Type User
+/intent-new Endpoint CreateUser
+/intent-new Workflow UserOnboarding
 ```
 
-## VS Code Commands
+### Viewing Intents
 
-| Shortcut | Command |
-|----------|---------|
-| Ctrl+Shift+P → "Intent: Validate" | Run validation |
-| Ctrl+Shift+P → "Intent: Generate" | Generate code |
-| Ctrl+Shift+P → "Intent: Format" | Format files |
-| Ctrl+Shift+P → "Intent: New Intent" | Create new intent |
-| Ctrl+Shift+P → "Intent: Show Semantic Diff" | Compare changes |
+```bash
+# List all intents
+/intent-list
+
+# List only Types
+/intent-list Type
+
+# Show details of an intent
+/intent-show User
+```
+
+### Formatting & Validation
+
+```bash
+# Format all intent files
+/intent-fmt
+
+# Format a specific file
+/intent-fmt .intent/model/User.intent.json
+
+# Validate all intents
+/intent-validate
+```
+
+### Code Generation
+
+```bash
+# Generate Rust code from intents
+/intent-gen
+```
+
+### Diff & Verification
+
+```bash
+# Compare against main branch
+/intent-diff main
+
+# Full verification (format + validate + gen check)
+/intent-verify
+```
+
+### Patching
+
+```bash
+# Apply a semantic patch
+/intent-patch migration.patch.json
+```
+
+## Command Reference
+
+| Command | Description |
+|---------|-------------|
+| `/baseline <spec>` | Convert markdown spec to intent files (greenfield) |
+| `/intent-extract [path]` | Extract intents from existing code (brownfield) |
+| `/intent-new <Kind> <Name>` | Create a new intent file |
+| `/intent-list [kind]` | List all intents (optionally filtered) |
+| `/intent-show <name>` | Show intent details |
+| `/intent-fmt [file]` | Format intent files |
+| `/intent-validate` | Validate all intents |
+| `/intent-gen` | Generate Rust code |
+| `/intent-diff <ref>` | Show semantic diff against git ref |
+| `/intent-verify` | Full verification pipeline |
+| `/intent-patch <file>` | Apply a semantic patch |
 
 ## Intent Kinds
 
 | Kind | Purpose | Example |
 |------|---------|---------|
 | Type | Data structures | User, Order, Product |
+| Enum | Sum types | OrderStatus, PaymentMethod |
 | Endpoint | HTTP handlers | CreateUser, GetOrders |
 | Workflow | Business logic | OrderFulfillment |
 | Service | External services | PaymentGateway |
@@ -74,17 +119,6 @@ intent-engine patch apply file.json --dry-run  # Preview
 "MyCustomType"            // Reference to Type intent
 ```
 
-## Exit Codes
-
-| Code | Meaning |
-|------|---------|
-| 0 | Success |
-| 1 | General error |
-| 2 | Validation failed |
-| 3 | Generation mismatch |
-| 4 | Patch conflict |
-| 5 | Open obligations |
-
 ## Project Structure
 
 ```
@@ -97,39 +131,22 @@ intent-engine patch apply file.json --dry-run  # Preview
 gen/                # Generated code (don't edit!)
 ```
 
-## CI/CD Pipeline
-
-```yaml
-# Minimum CI check
-- run: intent-engine verify
-```
-
-## Common Patterns
+## Common Workflows
 
 ```bash
 # Development workflow
-intent-engine new Type User           # 1. Create intent
-code .intent/model/user.intent.json   # 2. Edit spec
-intent-engine validate                # 3. Validate
-intent-engine gen                     # 4. Generate
+/intent-new Type User           # 1. Create intent
+# Edit .intent/model/User.intent.json
+/intent-validate                # 2. Validate
+/intent-gen                     # 3. Generate
 
 # Pre-commit check
-intent-engine fmt --check && intent-engine validate
+/intent-fmt
+/intent-validate
 
 # Pre-push check
-intent-engine verify
+/intent-verify
 
 # Review PR changes
-intent-engine diff --base origin/main
-```
-
-## Useful Aliases
-
-```bash
-# Add to ~/.bashrc or ~/.zshrc
-alias ie='intent-engine'
-alias iev='intent-engine validate'
-alias ieg='intent-engine gen'
-alias ief='intent-engine fmt'
-alias ied='intent-engine diff --base origin/main'
+/intent-diff origin/main
 ```

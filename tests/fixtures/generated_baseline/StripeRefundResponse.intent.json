@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0006-4000-8000-000000000006",
+  "kind": "Type",
+  "name": "StripeRefundResponse",
+  "spec": {
+    "fields": {
+      "refund_id": { "type": "string", "required": true },
+      "status": { "type": "string", "required": true },
+      "amount": { "type": "money", "required": true }
+    }
+  }
+}

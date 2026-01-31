@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0015-4000-8000-000000000015",
+  "kind": "Endpoint",
+  "name": "GetRefund",
+  "spec": {
+    "method": "GET",
+    "path": "/api/v1/refunds/{id}",
+    "input": "GetRefundRequest",
+    "output": "RefundResponse",
+    "workflow": "GetRefundWorkflow",
+    "authz": {
+      "principal": "user",
+      "scope": "refunds:read"
+    },
+    "errors": [
+      { "code": "NOT_FOUND", "status": 404, "retryable": false }
+    ]
+  }
+}

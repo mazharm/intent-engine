@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0011-4000-8000-000000000011",
+  "kind": "Workflow",
+  "name": "ProcessRefund",
+  "spec": {
+    "input": "RefundRequest",
+    "output": "RefundResponse",
+    "context": {
+      "order": "Order",
+      "stripe_result": "StripeRefundResponse"
+    },
+    "steps": [
+      {
+        "kind": "Transform",
+        "name": "validate_amount",
+        "assign": {},
+        "raise_if": {
+          "condition": "input.amount <= 0",
+          "error": "INVALID_AMOUNT"
+        }
+      },
+      {
+        "kind": "Effect",
+        "effect": "DbRead",
+        "table": "orders",
+        "query": { "id": "input.order_id" },
+        "output_binding": "order"
+      },
+      {
+        "kind": "Transform",
+        "name": "validate_order_ownership",
+        "assign": {},
+        "raise_if": {
+          "condition": "context.order.customer_id != input.customer_id",
+          "error": "UNAUTHORIZED"
+        }
+      },
+      {
+        "kind": "Transform",
+        "name": "validate_amount_limit",
+        "assign": {},
+        "raise_if": {
+          "condition": "input.amount > context.order.total",
+          "error": "AMOUNT_EXCEEDS_ORDER"
+        }
+      },
+      {
+        "kind": "Effect",
+        "effect": "HttpCall",
+        "service": "StripePayments",
+        "operation": "createRefund",
+        "input_mapping": {
+          "charge_id": "context.order.payment_id",
+          "amount": "input.amount",
+          "reason": "input.reason"
+        },
+        "output_binding": "stripe_result",
+        "on_error": "abort"
+      },
+      {
+        "kind": "Effect",
+        "effect": "DbWrite",
+        "table": "refunds",
+        "input_mapping": {
+          "id": "input.id",
+          "order_id": "input.order_id",
+          "amount": "input.amount",
+          "status": "Processed"
+        }
+      },
+      {
+        "kind": "Effect",
+        "effect": "HttpCall",
+        "service": "NotificationService",
+        "operation": "sendEmail",
+        "input_mapping": {
+          "to": "input.customer_id",
+          "subject": "Refund Processed",
+          "body": "Your refund has been processed",
+          "template_id": "refund_confirmation"
+        },
+        "on_error": "continue"
+      }
+    ]
+  }
+}

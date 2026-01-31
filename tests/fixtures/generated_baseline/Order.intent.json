@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0004-4000-8000-000000000004",
+  "kind": "Type",
+  "name": "Order",
+  "spec": {
+    "fields": {
+      "id": { "type": "uuid", "required": true },
+      "customer_id": { "type": "uuid", "required": true },
+      "total": { "type": "money", "required": true },
+      "payment_id": { "type": "string", "required": true },
+      "created_at": { "type": "datetime", "required": true }
+    }
+  }
+}

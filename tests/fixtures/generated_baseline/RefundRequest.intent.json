@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0002-4000-8000-000000000002",
+  "kind": "Type",
+  "name": "RefundRequest",
+  "spec": {
+    "fields": {
+      "id": { "type": "uuid", "required": true },
+      "order_id": { "type": "uuid", "required": true },
+      "customer_id": { "type": "uuid", "required": true },
+      "amount": { "type": "money", "required": true },
+      "reason": { "type": "string", "required": true },
+      "status": { "type": "RefundStatus", "required": true },
+      "created_at": { "type": "datetime", "required": true },
+      "processed_at": { "type": "optional<datetime>", "required": false }
+    }
+  }
+}

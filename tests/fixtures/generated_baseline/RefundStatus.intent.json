@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0001-4000-8000-000000000001",
+  "kind": "Enum",
+  "name": "RefundStatus",
+  "spec": {
+    "description": "Current status of a refund request",
+    "variants": [
+      { "name": "Pending", "description": "Refund request submitted, awaiting processing" },
+      { "name": "Approved", "description": "Refund has been approved" },
+      { "name": "Rejected", "description": "Refund was rejected" },
+      { "name": "Processed", "description": "Refund has been processed and completed" }
+    ],
+    "derives": ["Debug", "Clone", "PartialEq", "Eq", "Serialize", "Deserialize"]
+  }
+}

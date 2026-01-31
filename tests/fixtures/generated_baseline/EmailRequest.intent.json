@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0007-4000-8000-000000000007",
+  "kind": "Type",
+  "name": "EmailRequest",
+  "spec": {
+    "fields": {
+      "to": { "type": "string", "required": true },
+      "subject": { "type": "string", "required": true },
+      "body": { "type": "string", "required": true },
+      "template_id": { "type": "string", "required": false }
+    }
+  }
+}

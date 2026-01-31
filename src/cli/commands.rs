@@ -2,7 +2,6 @@
 
 use crate::codegen;
 use crate::diff;
-use crate::model::IntentError;
 use crate::parser::{self, IntentStore};
 use crate::validation;
 use anyhow::Result;
@@ -430,3 +429,4 @@ pub fn cmd_patch_apply(file: &str, dry_run: bool, json_output: bool) -> Result<i
         Ok(exit_codes::PATCH_CONFLICT)
     }
 }
+

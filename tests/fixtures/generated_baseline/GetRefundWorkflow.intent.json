@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0014-4000-8000-000000000014",
+  "kind": "Workflow",
+  "name": "GetRefundWorkflow",
+  "spec": {
+    "input": "GetRefundRequest",
+    "output": "RefundResponse",
+    "context": {
+      "refund": "RefundRequest"
+    },
+    "steps": [
+      {
+        "kind": "Effect",
+        "effect": "DbRead",
+        "table": "refunds",
+        "query": { "id": "input.refund_id" },
+        "output_binding": "refund"
+      },
+      {
+        "kind": "Transform",
+        "name": "build_response",
+        "assign": {
+          "refund_id": "context.refund.id",
+          "status": "context.refund.status",
+          "message": "Refund status retrieved"
+        }
+      }
+    ]
+  }
+}

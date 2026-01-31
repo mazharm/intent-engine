@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0008-4000-8000-000000000008",
+  "kind": "Type",
+  "name": "EmailResponse",
+  "spec": {
+    "fields": {
+      "message_id": { "type": "string", "required": true },
+      "status": { "type": "string", "required": true }
+    }
+  }
+}

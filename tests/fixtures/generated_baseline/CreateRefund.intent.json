@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0012-4000-8000-000000000012",
+  "kind": "Endpoint",
+  "name": "CreateRefund",
+  "spec": {
+    "method": "POST",
+    "path": "/api/v1/refunds",
+    "input": "RefundRequest",
+    "output": "RefundResponse",
+    "workflow": "ProcessRefund",
+    "policies": {
+      "timeout_ms": 5000,
+      "retries": {
+        "max": 3,
+        "backoff": "exponential"
+      }
+    },
+    "authz": {
+      "principal": "user",
+      "scope": "refunds:write"
+    },
+    "errors": [
+      { "code": "INVALID_AMOUNT", "status": 400, "retryable": false },
+      { "code": "AMOUNT_EXCEEDS_ORDER", "status": 400, "retryable": false },
+      { "code": "UNAUTHORIZED", "status": 401, "retryable": false },
+      { "code": "ORDER_NOT_FOUND", "status": 404, "retryable": false },
+      { "code": "PAYMENT_FAILED", "status": 502, "retryable": true }
+    ]
+  }
+}

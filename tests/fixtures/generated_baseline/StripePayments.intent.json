@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "id": "a1b2c3d4-0009-4000-8000-000000000009",
+  "kind": "Service",
+  "name": "StripePayments",
+  "spec": {
+    "protocol": "http",
+    "base_url": "https://api.stripe.com/v1",
+    "operations": {
+      "createRefund": {
+        "method": "POST",
+        "path": "/refunds",
+        "input": "StripeRefundRequest",
+        "output": "StripeRefundResponse"
+      }
+    }
+  }
+}
