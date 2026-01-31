@@ -1,6 +1,6 @@
 # Intent Engine VS Code Extension
 
-VS Code extension for the Intent-first programming system. This extension provides a rich UI layer for working with Intent files, integrating seamlessly with the `intent-engine` CLI.
+VS Code extension for the Intent-first programming system. This extension provides a rich UI layer for working with Intent files, integrating with the `intent-engine` CLI.
 
 ## Features
 
@@ -11,6 +11,7 @@ Browse all intents in your project organized by kind:
 ![Intent Tree](images/intent-tree.png)
 
 - **Types** - Data structures and DTOs
+- **Enums** - Sum types and status fields
 - **Endpoints** - HTTP API handlers
 - **Workflows** - Business logic flows
 - **Services** - External service definitions
@@ -40,6 +41,10 @@ Access via Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
 | **Intent: Format** | Canonicalize JSON formatting (RFC 8785) |
 | **Intent: New Intent** | Create a new intent with interactive prompts |
 | **Intent: Show Semantic Diff** | Compare current state against a git reference |
+| **Intent: Verify (Full Pipeline)** | Run format + validate + gen check + obligations |
+| **Intent: Show Intent Details** | Display details for a specific intent |
+| **Intent: List Intents** | List all intents with optional kind filter |
+| **Intent: Refresh Views** | Manually refresh the tree views |
 
 ### Auto-Actions on Save
 
@@ -66,21 +71,28 @@ The extension provides syntax highlighting for `.intent.json` files with proper 
 ### Prerequisites
 
 1. **VS Code** version 1.85.0 or later
-2. **intent-engine CLI** installed and available in PATH
+2. **Rust & Cargo** - Install from [rustup.rs](https://rustup.rs)
+3. **intent-engine CLI** - The extension requires the CLI to be installed
 
-### Install the CLI First
+### Step 1: Install the CLI
 
 ```bash
-# From source
-git clone https://github.com/your-org/intent-engine.git
+# Clone the repository
+git clone https://github.com/mazharm/intent-engine.git
 cd intent-engine
+
+# Install the CLI
 cargo install --path .
 
 # Verify installation
 intent-engine --version
 ```
 
-### Install Extension from VSIX
+The CLI must be available in your PATH for the extension to work.
+
+### Step 2: Install the Extension
+
+#### From VSIX (Local Build)
 
 ```bash
 # Build the extension
@@ -93,7 +105,7 @@ npx vsce package
 code --install-extension intent-engine-0.1.0.vsix
 ```
 
-### Install from Marketplace
+#### From Marketplace
 
 *(Coming soon)* Search for "Intent Engine" in the VS Code Extensions marketplace.
 
@@ -101,10 +113,10 @@ code --install-extension intent-engine-0.1.0.vsix
 
 1. **Open a project** with a `.intent/model` directory
 2. **Check the Explorer sidebar** - you should see "Intent Model" and "Obligations" panels
-3. **Create your first intent**: `Ctrl+Shift+P` → "Intent: New Intent"
+3. **Create your first intent**: `Ctrl+Shift+P` -> "Intent: New Intent"
 4. **Select a kind** (e.g., Type) and enter a name (e.g., User)
-5. **Edit the generated file** in `.intent/model/user.intent.json`
-6. **Generate code**: `Ctrl+Shift+P` → "Intent: Generate"
+5. **Edit the generated file** in `.intent/model/User.intent.json`
+6. **Generate code**: `Ctrl+Shift+P` -> "Intent: Generate"
 
 ## Extension Settings
 
@@ -120,8 +132,11 @@ Configure in VS Code settings (`Ctrl+,` / `Cmd+,`):
 
 ```json
 {
-  // Use a specific binary path
-  "intent.enginePath": "/usr/local/bin/intent-engine",
+  // Use a specific binary path (if not in PATH)
+  "intent.enginePath": "/home/user/.cargo/bin/intent-engine",
+
+  // Windows example
+  "intent.enginePath": "C:\\Users\\user\\.cargo\\bin\\intent-engine.exe",
 
   // Disable auto-format (format manually)
   "intent.formatOnSave": false,
@@ -212,11 +227,18 @@ Then reload the VS Code window.
 
 ### "Command 'intent-engine' not found"
 
-**Cause**: CLI not in PATH
+**Cause**: CLI not installed or not in PATH
 
 **Solutions**:
-1. Add CLI location to your PATH
-2. Set the full path in settings:
+1. Install the CLI:
+   ```bash
+   cargo install --path /path/to/intent-engine
+   ```
+2. Add Cargo bin to your PATH:
+   ```bash
+   export PATH="$HOME/.cargo/bin:$PATH"
+   ```
+3. Or set the full path in VS Code settings:
    ```json
    "intent.enginePath": "/full/path/to/intent-engine"
    ```
@@ -225,7 +247,10 @@ Then reload the VS Code window.
 
 **Cause**: No intent files in `.intent/model/`
 
-**Solution**: Create an intent file:
+**Solution**: Create an intent file using the Command Palette:
+- `Ctrl+Shift+P` -> "Intent: New Intent"
+
+Or via CLI:
 ```bash
 intent-engine new Type MyFirstType
 ```
@@ -243,7 +268,7 @@ intent-engine new Type MyFirstType
 **Solution**:
 1. Check settings
 2. Ensure the JSON is valid
-3. Run format manually: `intent-engine fmt`
+3. Run format manually via Command Palette or CLI: `intent-engine fmt`
 
 ## Development
 
@@ -276,11 +301,11 @@ npx vsce package
 The extension follows a **thin client** architecture:
 
 ```
-┌─────────────────┐      ┌──────────────────┐
-│  VS Code        │      │  intent-engine   │
-│  Extension      │ ───► │  CLI             │
-│  (UI Layer)     │      │  (All Logic)     │
-└─────────────────┘      └──────────────────┘
++-----------------+      +------------------+
+|  VS Code        |      |  intent-engine   |
+|  Extension      | ---> |  CLI             |
+|  (UI Layer)     |      |  (All Logic)     |
++-----------------+      +------------------+
 ```
 
 - **Extension responsibilities**: UI, file watching, user interaction

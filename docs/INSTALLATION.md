@@ -5,19 +5,21 @@ This guide covers installation and usage of the Intent Engine.
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Installation](#installation)
-3. [Quick Start](#quick-start)
-4. [Slash Commands Reference](#slash-commands-reference)
-5. [VS Code Extension](#vs-code-extension)
-6. [Configuration](#configuration)
-7. [Workflows & Best Practices](#workflows--best-practices)
-8. [Troubleshooting](#troubleshooting)
+2. [Prerequisites](#prerequisites)
+3. [Installation](#installation)
+4. [Quick Start](#quick-start)
+5. [Slash Commands Reference](#slash-commands-reference)
+6. [CLI Reference](#cli-reference)
+7. [VS Code Extension](#vs-code-extension)
+8. [Configuration](#configuration)
+9. [Workflows & Best Practices](#workflows--best-practices)
+10. [Troubleshooting](#troubleshooting)
 
 ---
 
 ## Overview
 
-Intent Engine is an intent-first programming system that treats Intent files as the source of truth and generates Rust code from them. All functionality is available through slash commands in Claude Code.
+Intent Engine is an intent-first programming system that treats Intent files as the source of truth and generates Rust code from them.
 
 ### Key Concepts
 
@@ -28,26 +30,76 @@ Intent Engine is an intent-first programming system that treats Intent files as 
 | **Generation** | The process of converting intents to Rust code |
 | **Validation** | Semantic checking of intent correctness and consistency |
 
+### Two Ways to Use Intent Engine
+
+| Method | Best For | Requirements |
+|--------|----------|--------------|
+| **Slash Commands** | Interactive development, AI-powered extraction | Claude Code |
+| **CLI** | CI/CD, scripting, VS Code extension | Rust toolchain |
+
+> **Note**: The `/baseline` and `/intent-extract` commands require Claude Code because they use AI to parse natural language specifications and analyze code patterns. All other commands are available both as slash commands and CLI.
+
+---
+
+## Prerequisites
+
+### For Slash Commands (Claude Code)
+
+- **Claude Code** - The AI coding assistant CLI
+
+### For CLI Usage
+
+- **Rust & Cargo** - Install from [rustup.rs](https://rustup.rs)
+  ```bash
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  ```
+
+### For VS Code Extension
+
+- Both of the above, plus VS Code 1.85.0+
+
 ---
 
 ## Installation
 
-### Prerequisites
-
-- **Claude Code** - The AI coding agent
-
-### Setup
-
-1. Clone or copy the intent-engine project to get the slash commands:
+### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/your-org/intent-engine.git
+git clone https://github.com/mazharm/intent-engine.git
+cd intent-engine
 ```
 
-2. The `.claude/commands/` directory contains all slash commands that become available in your project.
+### Step 2: Install the CLI (Optional but Recommended)
 
-3. Create the intent model directory structure in your project:
+```bash
+cargo install --path .
+```
 
+This installs the `intent-engine` binary to your PATH.
+
+Verify installation:
+```bash
+intent-engine --version
+```
+
+### Step 3: Set Up Slash Commands in Your Project
+
+To use the slash commands in your own project, copy the commands directory:
+
+```bash
+# From the intent-engine directory
+cp -r .claude/commands /path/to/your/project/.claude/
+```
+
+Or if you're starting a new project:
+```bash
+mkdir -p /path/to/your/project/.claude
+cp -r .claude/commands /path/to/your/project/.claude/
+```
+
+### Step 4: Create the Intent Model Directory
+
+In your project:
 ```bash
 mkdir -p .intent/model
 mkdir -p .intent/schema
@@ -64,6 +116,8 @@ If you have a markdown specification document describing your system:
 ```bash
 /baseline spec.md
 ```
+
+> **Requires Claude Code** - This command uses AI to parse your specification and extract domain concepts.
 
 This reads your spec and creates complete intent files for:
 - **Types** from domain model descriptions
@@ -82,12 +136,14 @@ If you have an existing Rust codebase you want to bring into the intent system:
 /intent-extract src/
 ```
 
+> **Requires Claude Code** - This command uses AI to analyze your code and extract patterns.
+
 This scans your code and extracts:
-- **Rust structs** → Type intents
-- **Rust enums** → Enum intents
-- **HTTP handlers** (axum/actix) → Endpoint intents
-- **HTTP clients** → Service intents
-- **Business logic** → Workflow intents (requires manual review)
+- **Rust structs** -> Type intents
+- **Rust enums** -> Enum intents
+- **HTTP handlers** (axum/actix) -> Endpoint intents
+- **HTTP clients** -> Service intents
+- **Business logic** -> Workflow intents (requires manual review)
 
 After extraction, review the generated intents and run `/intent-validate` to check for issues.
 
@@ -97,14 +153,11 @@ After extraction, review the generated intents and run `/intent-validate` to che
 # Create the intent model directory
 mkdir -p .intent/model
 
-# Create your first type
+# Create your first type (slash command)
 /intent-new Type User
 
-# Create an endpoint
-/intent-new Endpoint CreateUser
-
-# Create a workflow
-/intent-new Workflow UserOnboarding
+# Or using CLI
+intent-engine new Type User
 ```
 
 ### Edit Your Intent Files
@@ -131,25 +184,40 @@ Edit `.intent/model/User.intent.json`:
 ### Validate and Generate
 
 ```bash
-# Validate all intents
+# Validate all intents (slash command)
 /intent-validate
 
-# Generate Rust code
+# Or using CLI
+intent-engine validate
+
+# Generate Rust code (slash command)
 /intent-gen
+
+# Or using CLI
+intent-engine gen
 ```
 
 ### Full Verification
 
 ```bash
-# Run complete verification
+# Run complete verification (slash command)
 /intent-verify
+
+# Or using CLI
+intent-engine verify
 ```
 
 ---
 
 ## Slash Commands Reference
 
-### `/baseline <spec-file>`
+All slash commands run in Claude Code.
+
+### AI-Powered Commands
+
+These commands require Claude Code's AI capabilities and have no CLI equivalent:
+
+#### `/baseline <spec-file>`
 
 Convert a markdown specification document into complete intent files (greenfield).
 
@@ -169,7 +237,7 @@ Convert a markdown specification document into complete intent files (greenfield
 
 ---
 
-### `/intent-extract [path]`
+#### `/intent-extract [path]`
 
 Extract intents from existing Rust code (brownfield adoption).
 
@@ -195,7 +263,11 @@ After extraction, run `/intent-validate` to check for issues.
 
 ---
 
-### `/intent-new <Kind> <Name>`
+### Standard Commands
+
+These commands have equivalent CLI commands:
+
+#### `/intent-new <Kind> <Name>`
 
 Create a new intent file.
 
@@ -211,7 +283,7 @@ Create a new intent file.
 
 ---
 
-### `/intent-list [kind]`
+#### `/intent-list [kind]`
 
 List all intents in the project.
 
@@ -225,7 +297,7 @@ List all intents in the project.
 
 ---
 
-### `/intent-show <name>`
+#### `/intent-show <name>`
 
 Display detailed information about a specific intent.
 
@@ -237,7 +309,7 @@ Shows: kind, ID, spec details, dependencies, and dependents.
 
 ---
 
-### `/intent-fmt [file]`
+#### `/intent-fmt [file]`
 
 Format intent files using canonical JSON.
 
@@ -251,7 +323,7 @@ Format intent files using canonical JSON.
 
 ---
 
-### `/intent-validate`
+#### `/intent-validate`
 
 Validate all intent files for semantic correctness.
 
@@ -264,7 +336,7 @@ Validate all intent files for semantic correctness.
 
 ---
 
-### `/intent-gen`
+#### `/intent-gen`
 
 Generate Rust code from intent files.
 
@@ -283,7 +355,7 @@ gen/
 
 ---
 
-### `/intent-diff <git-ref>`
+#### `/intent-diff <git-ref>`
 
 Show semantic differences between current state and a git reference.
 
@@ -306,7 +378,7 @@ Show semantic differences between current state and a git reference.
 
 ---
 
-### `/intent-verify`
+#### `/intent-verify`
 
 Run complete verification pipeline.
 
@@ -318,7 +390,7 @@ Run complete verification pipeline.
 
 ---
 
-### `/intent-patch <patch-file>`
+#### `/intent-patch <patch-file>`
 
 Apply a semantic patch file to intents.
 
@@ -330,17 +402,105 @@ Apply a semantic patch file to intents.
 
 ---
 
+## CLI Reference
+
+The CLI provides the same functionality as standard slash commands (except AI-powered commands).
+
+### Installation
+
+```bash
+cargo install --path /path/to/intent-engine
+```
+
+### Commands
+
+```bash
+# Create a new intent
+intent-engine new <Kind> <Name>
+intent-engine new Type User
+
+# List intents
+intent-engine list
+intent-engine list --kind Type
+
+# Show intent details
+intent-engine show <name>
+intent-engine show User
+
+# Format intent files
+intent-engine fmt
+intent-engine fmt --check              # Check only, don't write
+intent-engine fmt path/to/file.json    # Format specific file
+
+# Validate intents
+intent-engine validate
+
+# Generate code
+intent-engine gen
+intent-engine gen --check              # Check only, don't write
+
+# Semantic diff
+intent-engine diff --base main
+intent-engine diff --base origin/main
+
+# Full verification
+intent-engine verify
+
+# Apply patch
+intent-engine patch apply migration.patch.json
+intent-engine patch apply migration.patch.json --dry-run
+```
+
+### Output Formats
+
+All commands support JSON output for scripting:
+
+```bash
+intent-engine list --format json
+intent-engine validate --format json
+```
+
+### Exit Codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Success |
+| 1 | General error |
+| 2 | Validation error |
+| 3 | Generation mismatch |
+| 4 | Patch conflict |
+| 5 | Open obligations |
+
+---
+
 ## VS Code Extension
 
 The VS Code extension provides a UI layer for intent management.
 
 ### Features
 
-- **Intent Model Tree View** - Browse intents by kind
+- **Intent Model Tree View** - Browse intents by kind (Types, Enums, Endpoints, Workflows, Services, Migrations, Contract Tests)
 - **Obligations Panel** - Track open contract tests and migrations
 - **Commands** - Access all operations via Command Palette
 - **Auto-format** - Format on save
+- **Syntax Highlighting** - Highlighting for `.intent.json` files
 - **Generated Code Protection** - Warnings when opening gen/ files
+
+### Commands
+
+Access via Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
+
+| Command | Description |
+|---------|-------------|
+| Intent: Validate | Run semantic validation |
+| Intent: Generate | Generate Rust code |
+| Intent: Format | Format intent files |
+| Intent: New Intent | Create a new intent |
+| Intent: Show Semantic Diff | Compare against git ref |
+| Intent: Verify (Full Pipeline) | Run full verification |
+| Intent: Show Intent Details | Display intent details |
+| Intent: List Intents | List all intents |
+| Intent: Refresh Views | Refresh tree views |
 
 ### Installation
 
@@ -369,8 +529,8 @@ Create `.intent/config.json`:
 ### Development Workflow
 
 1. Create or modify intent files
-2. Run `/intent-validate` to check
-3. Run `/intent-gen` to generate code
+2. Run `/intent-validate` (or `intent-engine validate`) to check
+3. Run `/intent-gen` (or `intent-engine gen`) to generate code
 4. Commit both intents and generated code
 
 ### Review Changes
@@ -378,9 +538,20 @@ Create `.intent/config.json`:
 Before merging PRs:
 ```bash
 /intent-diff origin/main
+# or
+intent-engine diff --base origin/main
 ```
 
 Check for HIGH severity (breaking) changes.
+
+### CI/CD Integration
+
+Add to your CI pipeline:
+```bash
+intent-engine verify
+```
+
+This runs format check, validation, generation check, and obligations check.
 
 ### Project Structure
 
@@ -405,6 +576,24 @@ Create the directory:
 mkdir -p .intent/model
 ```
 
+### Slash commands not available
+
+Ensure the `.claude/commands/` directory exists in your project with the intent-engine commands:
+```bash
+cp -r /path/to/intent-engine/.claude/commands .claude/
+```
+
+### "Command 'intent-engine' not found"
+
+The CLI is not installed or not in PATH:
+```bash
+# Install the CLI
+cargo install --path /path/to/intent-engine
+
+# Or add Cargo bin to PATH
+export PATH="$HOME/.cargo/bin:$PATH"
+```
+
 ### Validation errors for type references
 
 Use intent primitive types:
@@ -418,6 +607,8 @@ Use intent primitive types:
 Regenerate:
 ```bash
 /intent-gen
+# or
+intent-engine gen
 ```
 
 ---

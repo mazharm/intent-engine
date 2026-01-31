@@ -24,9 +24,10 @@ class IntentTreeProvider implements vscode.TreeDataProvider<IntentItem> {
         }
 
         if (!element) {
-            // Root: show intent kinds
+            // Root: show intent kinds (all kinds supported by CLI)
             return [
                 new IntentItem('Types', vscode.TreeItemCollapsibleState.Collapsed, 'Type'),
+                new IntentItem('Enums', vscode.TreeItemCollapsibleState.Collapsed, 'Enum'),
                 new IntentItem('Endpoints', vscode.TreeItemCollapsibleState.Collapsed, 'Endpoint'),
                 new IntentItem('Workflows', vscode.TreeItemCollapsibleState.Collapsed, 'Workflow'),
                 new IntentItem('Services', vscode.TreeItemCollapsibleState.Collapsed, 'Service'),
@@ -125,8 +126,6 @@ async function runIntentCommand(args: string[]): Promise<string> {
 
 // File system watcher for gen/ directory
 function setupGenProtection(context: vscode.ExtensionContext) {
-    const watcher = vscode.workspace.createFileSystemWatcher('**/gen/**');
-
     // Show warning when trying to edit generated files
     context.subscriptions.push(
         vscode.workspace.onDidOpenTextDocument(doc => {
@@ -189,7 +188,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         vscode.commands.registerCommand('intent.newIntent', async () => {
             const kind = await vscode.window.showQuickPick(
-                ['Type', 'Endpoint', 'Workflow', 'Service', 'ContractTest', 'Migration'],
+                ['Type', 'Enum', 'Endpoint', 'Workflow', 'Service', 'ContractTest', 'Migration'],
                 { placeHolder: 'Select intent kind' }
             );
             if (!kind) return;
@@ -206,7 +205,7 @@ export function activate(context: vscode.ExtensionContext) {
             if (!name) return;
 
             try {
-                const result = await runIntentCommand(['new', kind, name]);
+                await runIntentCommand(['new', kind, name]);
                 vscode.window.showInformationMessage(`Created: ${name}`);
                 intentTreeProvider.refresh();
             } catch (e: any) {
@@ -241,6 +240,93 @@ export function activate(context: vscode.ExtensionContext) {
             } catch (e: any) {
                 vscode.window.showErrorMessage(`Diff error: ${e.message}`);
             }
+        }),
+
+        // New commands to match CLI functionality
+        vscode.commands.registerCommand('intent.verify', async () => {
+            try {
+                const result = await runIntentCommand(['verify', '--format', 'json']);
+                const data = JSON.parse(result);
+                if (data.success) {
+                    vscode.window.showInformationMessage(
+                        `Verification passed! ${data.intents_validated} intents, ${data.files_generated} files.`
+                    );
+                } else {
+                    vscode.window.showErrorMessage(`Verification failed at step: ${data.step}`);
+                }
+                obligationsProvider.refresh();
+            } catch (e: any) {
+                vscode.window.showErrorMessage(`Verification error: ${e.message}`);
+            }
+        }),
+
+        vscode.commands.registerCommand('intent.show', async () => {
+            const name = await vscode.window.showInputBox({
+                prompt: 'Enter intent name to show',
+                placeHolder: 'e.g., User, OrderStatus, CreateUser'
+            });
+            if (!name) return;
+
+            try {
+                const result = await runIntentCommand(['show', name, '--format', 'json']);
+                const data = JSON.parse(result);
+
+                // Show in output channel
+                const channel = vscode.window.createOutputChannel('Intent Details');
+                channel.clear();
+                channel.appendLine(`Intent: ${data.name}`);
+                channel.appendLine('='.repeat(50));
+                channel.appendLine(`Kind: ${data.kind}`);
+                channel.appendLine(`ID: ${data.id}`);
+                channel.appendLine(`Schema Version: ${data.schema_version}`);
+                channel.appendLine('');
+                channel.appendLine('Spec:');
+                channel.appendLine(JSON.stringify(data.spec, null, 2));
+                channel.show();
+            } catch (e: any) {
+                if (e.message.includes('not found')) {
+                    vscode.window.showErrorMessage(`Intent not found: ${name}`);
+                } else {
+                    vscode.window.showErrorMessage(`Error: ${e.message}`);
+                }
+            }
+        }),
+
+        vscode.commands.registerCommand('intent.list', async () => {
+            const kind = await vscode.window.showQuickPick(
+                ['All', 'Type', 'Enum', 'Endpoint', 'Workflow', 'Service', 'ContractTest', 'Migration'],
+                { placeHolder: 'Filter by kind (or All)' }
+            );
+            if (!kind) return;
+
+            try {
+                const args = kind === 'All'
+                    ? ['list', '--format', 'json']
+                    : ['list', '--kind', kind, '--format', 'json'];
+                const result = await runIntentCommand(args);
+                const intents = JSON.parse(result);
+
+                // Show in output channel
+                const channel = vscode.window.createOutputChannel('Intent List');
+                channel.clear();
+                channel.appendLine(`Intents${kind !== 'All' ? ` (${kind})` : ''}: ${intents.length} total`);
+                channel.appendLine('='.repeat(60));
+                channel.appendLine('');
+
+                for (const intent of intents) {
+                    channel.appendLine(`${intent.kind.padEnd(12)} ${intent.name.padEnd(30)} ${intent.file}`);
+                }
+
+                channel.show();
+            } catch (e: any) {
+                vscode.window.showErrorMessage(`Error: ${e.message}`);
+            }
+        }),
+
+        vscode.commands.registerCommand('intent.refresh', () => {
+            intentTreeProvider.refresh();
+            obligationsProvider.refresh();
+            vscode.window.showInformationMessage('Intent views refreshed');
         })
     );
 
@@ -251,7 +337,12 @@ export function activate(context: vscode.ExtensionContext) {
 
             const config = vscode.workspace.getConfiguration('intent');
             if (config.get<boolean>('formatOnSave', true)) {
-                await runIntentCommand(['fmt', doc.uri.fsPath]);
+                try {
+                    await runIntentCommand(['fmt', doc.uri.fsPath]);
+                } catch (e: any) {
+                    // Silently fail format on save to avoid interrupting workflow
+                    console.error('Format on save failed:', e.message);
+                }
             }
             if (config.get<boolean>('validateOnSave', true)) {
                 intentTreeProvider.refresh();

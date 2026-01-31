@@ -1,10 +1,10 @@
 # Intent Engine Quick Reference
 
-## Slash Commands
+## Slash Commands (Claude Code)
 
-All intent-engine functionality is available through slash commands in Claude Code.
+### AI-Powered Commands
 
-### Getting Started
+These require Claude Code's AI capabilities:
 
 ```bash
 # Greenfield: Convert a spec document to intent files
@@ -12,78 +12,130 @@ All intent-engine functionality is available through slash commands in Claude Co
 
 # Brownfield: Extract intents from existing code
 /intent-extract src/
+```
 
+### Standard Commands
+
+```bash
 # Create a new intent
 /intent-new Type User
 /intent-new Endpoint CreateUser
 /intent-new Workflow UserOnboarding
-```
 
-### Viewing Intents
-
-```bash
 # List all intents
 /intent-list
-
-# List only Types
 /intent-list Type
 
 # Show details of an intent
 /intent-show User
-```
 
-### Formatting & Validation
-
-```bash
 # Format all intent files
 /intent-fmt
-
-# Format a specific file
 /intent-fmt .intent/model/User.intent.json
 
 # Validate all intents
 /intent-validate
-```
 
-### Code Generation
-
-```bash
-# Generate Rust code from intents
+# Generate Rust code
 /intent-gen
-```
 
-### Diff & Verification
-
-```bash
 # Compare against main branch
 /intent-diff main
 
 # Full verification (format + validate + gen check)
 /intent-verify
-```
 
-### Patching
-
-```bash
 # Apply a semantic patch
 /intent-patch migration.patch.json
 ```
 
+## CLI Commands
+
+Install: `cargo install --path /path/to/intent-engine`
+
+```bash
+# Create a new intent
+intent-engine new Type User
+
+# List intents
+intent-engine list
+intent-engine list --kind Type
+
+# Show intent details
+intent-engine show User
+
+# Format intent files
+intent-engine fmt
+intent-engine fmt --check
+
+# Validate
+intent-engine validate
+
+# Generate code
+intent-engine gen
+intent-engine gen --check
+
+# Semantic diff
+intent-engine diff --base main
+
+# Full verification
+intent-engine verify
+
+# Apply patch
+intent-engine patch apply migration.patch.json
+intent-engine patch apply migration.patch.json --dry-run
+```
+
+### JSON Output (for scripting)
+
+```bash
+intent-engine list --format json
+intent-engine validate --format json
+intent-engine gen --format json
+```
+
+### Exit Codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | Success |
+| 1 | General error |
+| 2 | Validation error |
+| 3 | Generation mismatch |
+| 4 | Patch conflict |
+| 5 | Open obligations |
+
 ## Command Reference
+
+| Slash Command | CLI Command | Description |
+|---------------|-------------|-------------|
+| `/baseline <spec>` | *none* | Convert spec to intents (AI) |
+| `/intent-extract [path]` | *none* | Extract from code (AI) |
+| `/intent-new <Kind> <Name>` | `intent-engine new` | Create intent |
+| `/intent-list [kind]` | `intent-engine list` | List intents |
+| `/intent-show <name>` | `intent-engine show` | Show details |
+| `/intent-fmt [file]` | `intent-engine fmt` | Format files |
+| `/intent-validate` | `intent-engine validate` | Validate |
+| `/intent-gen` | `intent-engine gen` | Generate code |
+| `/intent-diff <ref>` | `intent-engine diff` | Semantic diff |
+| `/intent-verify` | `intent-engine verify` | Full verify |
+| `/intent-patch <file>` | `intent-engine patch apply` | Apply patch |
+
+## VS Code Extension Commands
+
+Access via Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`):
 
 | Command | Description |
 |---------|-------------|
-| `/baseline <spec>` | Convert markdown spec to intent files (greenfield) |
-| `/intent-extract [path]` | Extract intents from existing code (brownfield) |
-| `/intent-new <Kind> <Name>` | Create a new intent file |
-| `/intent-list [kind]` | List all intents (optionally filtered) |
-| `/intent-show <name>` | Show intent details |
-| `/intent-fmt [file]` | Format intent files |
-| `/intent-validate` | Validate all intents |
-| `/intent-gen` | Generate Rust code |
-| `/intent-diff <ref>` | Show semantic diff against git ref |
-| `/intent-verify` | Full verification pipeline |
-| `/intent-patch <file>` | Apply a semantic patch |
+| Intent: Validate | Run semantic validation |
+| Intent: Generate | Generate Rust code |
+| Intent: Format | Format intent files |
+| Intent: New Intent | Create a new intent (interactive) |
+| Intent: Show Semantic Diff | Compare against git ref |
+| Intent: Verify (Full Pipeline) | Run format + validate + gen check |
+| Intent: Show Intent Details | Display intent details |
+| Intent: List Intents | List all intents with filter |
+| Intent: Refresh Views | Refresh tree views |
 
 ## Intent Kinds
 
@@ -133,20 +185,39 @@ gen/                # Generated code (don't edit!)
 
 ## Common Workflows
 
+### Development
+
 ```bash
-# Development workflow
-/intent-new Type User           # 1. Create intent
+# Create intent
+/intent-new Type User
+# or: intent-engine new Type User
+
 # Edit .intent/model/User.intent.json
-/intent-validate                # 2. Validate
-/intent-gen                     # 3. Generate
 
-# Pre-commit check
-/intent-fmt
+# Validate
 /intent-validate
+# or: intent-engine validate
 
-# Pre-push check
-/intent-verify
+# Generate
+/intent-gen
+# or: intent-engine gen
+```
 
-# Review PR changes
+### Pre-commit
+
+```bash
+intent-engine fmt --check && intent-engine validate
+```
+
+### CI/CD
+
+```bash
+intent-engine verify
+```
+
+### Review PR changes
+
+```bash
 /intent-diff origin/main
+# or: intent-engine diff --base origin/main
 ```

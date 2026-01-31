@@ -136,7 +136,7 @@ Effect kinds: `HttpCall`, `DbRead`, `DbWrite`, `DbDelete`, `EmitEvent`
 
 ## Validation
 
-After creating intent files, run `intent validate` to verify correctness. Ensure:
+After creating intent files, run `/intent-validate` (or `intent-engine validate` via CLI) to verify correctness. Ensure:
 - All type references exist (if Workflow uses `Order`, create that Type)
 - Workflows referenced by Endpoints exist
 - Services referenced in Workflows exist

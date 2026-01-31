@@ -51,6 +51,22 @@
       {
         "command": "intent.showDiff",
         "title": "Intent: Show Semantic Diff"
+      },
+      {
+        "command": "intent.verify",
+        "title": "Intent: Verify (Full Pipeline)"
+      },
+      {
+        "command": "intent.show",
+        "title": "Intent: Show Intent Details"
+      },
+      {
+        "command": "intent.list",
+        "title": "Intent: List Intents"
+      },
+      {
+        "command": "intent.refresh",
+        "title": "Intent: Refresh Views"
       }
     ],
     "views": {

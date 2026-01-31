@@ -1,0 +1,124 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Intent JSON",
+  "scopeName": "source.intent.json",
+  "patterns": [
+    { "include": "#value" }
+  ],
+  "repository": {
+    "value": {
+      "patterns": [
+        { "include": "#object" },
+        { "include": "#array" },
+        { "include": "#string" },
+        { "include": "#number" },
+        { "include": "#constant" }
+      ]
+    },
+    "object": {
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.dictionary.begin.json" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.dictionary.end.json" }
+      },
+      "patterns": [
+        { "include": "#intent-keys" },
+        { "include": "#string-key" },
+        { "include": "#value" },
+        {
+          "match": ":",
+          "name": "punctuation.separator.dictionary.key-value.json"
+        },
+        {
+          "match": ",",
+          "name": "punctuation.separator.dictionary.pair.json"
+        }
+      ]
+    },
+    "intent-keys": {
+      "patterns": [
+        {
+          "match": "\"(schema_version|id|kind|name|spec)\"",
+          "name": "support.type.property-name.intent.json"
+        },
+        {
+          "match": "\"(Type|Enum|Endpoint|Workflow|Service|ContractTest|Migration)\"",
+          "name": "constant.language.intent-kind.json"
+        },
+        {
+          "match": "\"(fields|variants|method|path|input|output|workflow|steps|operations|errors|policies|authz|context)\"",
+          "name": "keyword.other.spec-key.json"
+        },
+        {
+          "match": "\"(type|required|description|default)\"",
+          "name": "variable.other.field-property.json"
+        },
+        {
+          "match": "\"(string|int|float|bool|uuid|datetime|money|bytes)\"",
+          "name": "storage.type.primitive.json"
+        },
+        {
+          "match": "\"(array|map|optional)<[^\"]+>\"",
+          "name": "storage.type.composite.json"
+        },
+        {
+          "match": "\"(GET|POST|PUT|DELETE|PATCH)\"",
+          "name": "constant.language.http-method.json"
+        },
+        {
+          "match": "\"(HIGH|MEDIUM|LOW|INFO)\"",
+          "name": "constant.language.severity.json"
+        }
+      ]
+    },
+    "array": {
+      "begin": "\\[",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.array.begin.json" }
+      },
+      "end": "\\]",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.array.end.json" }
+      },
+      "patterns": [
+        { "include": "#value" },
+        {
+          "match": ",",
+          "name": "punctuation.separator.array.json"
+        }
+      ]
+    },
+    "string-key": {
+      "match": "\"[^\"]*\"(?=\\s*:)",
+      "name": "support.type.property-name.json"
+    },
+    "string": {
+      "begin": "\"",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.string.begin.json" }
+      },
+      "end": "\"",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.json" }
+      },
+      "name": "string.quoted.double.json",
+      "patterns": [
+        {
+          "match": "\\\\(?:[\"\\\\\/bfnrt]|u[0-9a-fA-F]{4})",
+          "name": "constant.character.escape.json"
+        }
+      ]
+    },
+    "number": {
+      "match": "-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?",
+      "name": "constant.numeric.json"
+    },
+    "constant": {
+      "match": "\\b(true|false|null)\\b",
+      "name": "constant.language.json"
+    }
+  }
+}
